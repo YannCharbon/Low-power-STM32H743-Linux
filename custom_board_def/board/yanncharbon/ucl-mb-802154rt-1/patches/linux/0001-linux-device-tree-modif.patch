@@ -1,0 +1,507 @@
+diff --git a/arch/arm/boot/dts/stm32h743-pinctrl.dtsi b/arch/arm/boot/dts/stm32h743-pinctrl.dtsi
+index e44e7baa3f17..de89818eb95c 100644
+--- a/arch/arm/boot/dts/stm32h743-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32h743-pinctrl.dtsi
+@@ -301,6 +301,115 @@
+ 					slew-rate = <2>;
+ 				};
+ 			};
++
++			ethernet_mii: mii@0 {
++				pins {
++					pinmux = <STM32_PINMUX('A', 0, AF11)>,		/* ETH_MII_CRS */
++						<STM32_PINMUX('A', 1, AF11)>,			/* ETH_MII_RX_CLK */
++						<STM32_PINMUX('A', 2, AF11)>,			/* ETH_MDIO */
++						<STM32_PINMUX('A', 3, AF11)>,			/* ETH_MII_COL */
++						<STM32_PINMUX('A', 7, AF11)>,			/* ETH_MII_CRS_DV */
++						<STM32_PINMUX('B', 0, AF11)>,			/* ETH_MII_RXD2 */
++						<STM32_PINMUX('B', 1, AF11)>,			/* ETH_MII_RXD3 */
++						<STM32_PINMUX('B', 8, AF11)>,			/* ETH_MII_TXD3 */
++						<STM32_PINMUX('B', 10, AF11)>,			/* ETH_MII_RX_ER */
++						<STM32_PINMUX('B', 11, AF11)>,			/* ETH_MII_TX_EN */
++						<STM32_PINMUX('B',12, AF11)>,			/* ETH_MII_TXD0 */
++						<STM32_PINMUX('B', 13, AF11)>,			/* ETH_MII_TXD1 */
++						<STM32_PINMUX('C', 1, AF11)>,			/* ETH_MDC */
++						<STM32_PINMUX('C', 2, AF11)>,			/* ETH_MII_TXD2 */
++						<STM32_PINMUX('C', 3, AF11)>,			/* ETH_MII_TX_CLK */
++						<STM32_PINMUX('C', 4, AF11)>,			/* ETH_MII_RXD0 */
++						<STM32_PINMUX('C', 5, AF11)>;			/* ETH_MII_RXD1 */
++						slew-rate = <2>;
++				};
++			};
++
++			qspi_pins: qspi@0 {
++				pins {
++					pinmux = <STM32_PINMUX('F', 10, AF9)>,	/* CLK */
++						<STM32_PINMUX('G', 6, AF10)>, 		/* BK1_NCS */
++						<STM32_PINMUX('D',11, AF9)>,		/* BK1_IO0 */
++						<STM32_PINMUX('D',12, AF9)>,		/* BK1_IO1 */
++						<STM32_PINMUX('D',13, AF9)>,		/* BK1_IO3 */
++						<STM32_PINMUX('E', 2, AF9)>;		/* BK1_IO2 */
++					slew-rate = <2>;
++				};
++			};
++
++			spi2_pins: spi2-0 {
++				pins1 {
++					pinmux = <STM32_PINMUX('A', 12, AF5)>,
++						/* SPI2_CLK */
++						<STM32_PINMUX('B', 15, AF5)>;
++						/* SPI2_MOSI */
++					bias-disable;
++					drive-push-pull;
++					slew-rate = <2>;
++				};
++				pins2 {
++					pinmux = <STM32_PINMUX('B', 14, AF5)>;
++						/* SPI2_MISO */
++					bias-disable;
++				};
++			};
++
++			spi3_pins: spi3-0 {
++				pins1 {
++					pinmux = <STM32_PINMUX('C', 10, AF6)>,
++						/* SPI3_CLK */
++						<STM32_PINMUX('C', 12, AF6)>;
++						/* SPI3_MOSI */
++					bias-disable;
++					drive-push-pull;
++					slew-rate = <2>;
++				};
++				pins2 {
++					pinmux = <STM32_PINMUX('C', 11, AF6)>;
++						/* SPI3_MISO */
++					bias-disable;
++				};
++			};
++
++			spi5_pins: spi5-0 {
++				pins1 {
++					pinmux = <STM32_PINMUX('F', 7, AF5)>,
++						/* SPI5_CLK */
++						<STM32_PINMUX('F', 9, AF5)>;
++						/* SPI5_MOSI */
++					bias-disable;
++					drive-push-pull;
++					slew-rate = <2>;
++				};
++				pins2 {
++					pinmux = <STM32_PINMUX('F', 8, AF5)>;
++						/* SPI5_MISO */
++					bias-disable;
++				};
++			};
++
++			i2c3_pins_a: i2c3-0 {
++				pins {
++					pinmux = <STM32_PINMUX('A', 8, AF4)>, /* I2C3_SCL */
++						<STM32_PINMUX('C', 9, AF4)>; /* I2C3_SDA */
++					bias-disable;
++					drive-open-drain;
++					slew-rate = <0>;
++				};
++			};
++
++			usart6_pins: usart6-0 {
++				pins1 {
++					pinmux = <STM32_PINMUX('G', 14, AF7)>; /* USART6_TX */
++					bias-disable;
++					drive-push-pull;
++					slew-rate = <0>;
++				};
++				pins2 {
++					pinmux = <STM32_PINMUX('G', 9, AF7)>; /* USART6_RX */
++					bias-disable;
++				};
++			};
+ 		};
+ 	};
+ };
+diff --git a/arch/arm/boot/dts/stm32h743.dtsi b/arch/arm/boot/dts/stm32h743.dtsi
+index 82a234c64b8b..f957fbb8851f 100644
+--- a/arch/arm/boot/dts/stm32h743.dtsi
++++ b/arch/arm/boot/dts/stm32h743.dtsi
+@@ -244,7 +244,8 @@
+ 				     <47>;
+ 			clocks = <&rcc DMA1_CK>;
+ 			#dma-cells = <4>;
+-			st,mem2mem;
++			//st,mem2mem;
++			//dma-channels = <8>;
+ 			dma-requests = <8>;
+ 			status = "disabled";
+ 		};
+@@ -262,7 +263,8 @@
+ 				     <70>;
+ 			clocks = <&rcc DMA2_CK>;
+ 			#dma-cells = <4>;
+-			st,mem2mem;
++			//st,mem2mem;
++			//dma-channels = <8>;
+ 			dma-requests = <8>;
+ 			status = "disabled";
+ 		};
+@@ -528,14 +530,31 @@
+ 			compatible = "st,stm32-dwmac", "snps,dwmac-4.10a";
+ 			reg = <0x40028000 0x8000>;
+ 			reg-names = "stmmaceth";
++
++			resets = <&rcc STM32H7_AHB1_RESET(ETH1MAC)>;
++			reset-names = "stmmaceth";
++
++			clocks = <&rcc ETH1MAC_CK>,<&rcc ETH1TX_CK>,<&rcc ETH1RX_CK>;
++			clock-names = "stmmaceth", "mac-clk-tx", "mac-clk-rx";
++
+ 			interrupts = <61>;
+ 			interrupt-names = "macirq";
+-			clock-names = "stmmaceth", "mac-clk-tx", "mac-clk-rx";
+-			clocks = <&rcc ETH1MAC_CK>, <&rcc ETH1TX_CK>, <&rcc ETH1RX_CK>;
+-			st,syscon = <&syscfg 0x4>;
+-			snps,pbl = <8>;
++			
+ 			status = "disabled";
+ 		};
++
++		qspi: spi@52005000 {
++			compatible = "st,stm32f469-qspi";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x52005000 0x1000>, <0x90000000 0x10000000>;
++			reg-names = "qspi", "qspi_mm";
++			interrupts = <92>;
++			spi-max-frequency = <108000000>;
++			clocks = <&rcc QUADSPI_CK>;
++			resets = <&rcc STM32H7_AHB3_RESET(QUADSPI)>;
++ 			status = "disabled";
++ 		};
+ 	};
+ };
+ 
+diff --git a/arch/arm/boot/dts/stm32h743i-disco.dts b/arch/arm/boot/dts/stm32h743i-disco.dts
+index 3acd2e9c434e..ae3e37512934 100644
+--- a/arch/arm/boot/dts/stm32h743i-disco.dts
++++ b/arch/arm/boot/dts/stm32h743i-disco.dts
+@@ -1,5 +1,6 @@
+ /*
+  * Copyright 2017 - Patrice Chotard <patrice.chotard@st.com>
++ * Copyright 2021 - Yann Charbon <yann.charbon@ik.me>
+  *
+  * This file is dual-licensed: you can use it either under the terms
+  * of the GPL or the X11 license, at your option. Note that this dual
+@@ -43,9 +44,12 @@
+ /dts-v1/;
+ #include "stm32h743.dtsi"
+ #include "stm32h743-pinctrl.dtsi"
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
+ 
+ / {
+-	model = "STMicroelectronics STM32H743i-Discovery board";
++	model = "UCL-MB-802154RT-1 board (based on UCL-CPUM-H7-2) by Yann Charbon";
+ 	compatible = "st,stm32h743i-disco", "st,stm32h743";
+ 
+ 	chosen {
+@@ -55,13 +59,53 @@
+ 
+ 	memory {
+ 		device_type = "memory";
+-		reg = <0xd0000000 0x2000000>;
++		reg = <0xd0000000 0x4000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		linux,dma {
++			compatible = "shared-dma-pool";
++			linux,dma-default;
++			no-map;
++			reg = <0x24000000 0x20000>; /* AXI SRAM 128kB */
++		};
+ 	};
+ 
+ 	aliases {
+ 		serial0 = &usart2;
+ 	};
+ 
++	//leds {
++	//	compatible = "gpio-leds";
++	//	yellow {
++	//		gpios = <&gpioc 7 GPIO_ACTIVE_LOW>;
++	//		linux,default-trigger = "heartbeat";
++	//	};
++	//};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		//autorepeat;
++		//button-0 {
++		//	label = "User";
++		//	linux,code = <KEY_HOME>;
++		//	gpios = <&gpioa 9 GPIO_ACTIVE_LOW>;
++		//};
++
++		wakeup {
++			label = "WAKE1_MICO";
++			gpios = <&gpioa 9 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_WAKEUP>;
++			debounce-interval = <10>;
++			wakeup-source;
++		};
++	};
++
+ 	v3v3: regulator-v3v3 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "v3v3";
+@@ -69,6 +113,22 @@
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
+ 	};
++
++	flash@90000000 {
++		compatible = "mtd-rom";
++		probe-type = "map_rom";
++		reg = <0x90000000 0x1000000>;
++		bank-width = <4>;
++		device-width = <1>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		rootfs@810000 {
++			label = "rootfs";
++			reg = <0x810000 0x600000>;
++		};
++	};
+ };
+ 
+ &clk_hse {
+@@ -76,32 +136,29 @@
+ };
+ 
+ &mac {
+-	status = "disabled";
+-	pinctrl-0	= <&ethernet_rmii>;
+-	pinctrl-names	= "default";
+-	phy-mode	= "rmii";
+-	phy-handle	= <&phy0>;
++	status = "okay";
++
++	pinctrl-0 = <&ethernet_mii>;
++	phy-mode = "mii";
++
++	rx-fifo-depth = <128>;
++	tx-fifo-depth = <128>;
++
++	snps,pbl = <8>;
++	st,syscon = <&syscfg 0x4>;
++	snps,mixed-burst;
++	phy-handle = <&phy0>;
+ 
+ 	mdio0 {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		compatible = "snps,dwmac-mdio";
+-		phy0: ethernet-phy@0 {
+-			reg = <0>;
++		phy0: ethernet-phy@1 {
++			reg = <1>;
+ 		};
+ 	};
+-};
+ 
+-&sdmmc1 {
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+-	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+-	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+-	broken-cd;
+-	st,neg-edge;
+-	bus-width = <4>;
+-	vmmc-supply = <&v3v3>;
+-	status = "okay";
++
+ };
+ 
+ &usart2 {
+@@ -109,3 +166,132 @@
+ 	pinctrl-names = "default";
+ 	status = "okay";
+ };
++
++//&spi3 {
++//	status = "okay";
++//	pinctrl-0 = <&spi3_pins>;
++//	pinctrl-names = "default";
++//	#address-cells = <1>;
++//	#size-cells = <0>;
++//
++//	cs-gpios = <&gpioa 4 1>;
++//
++//	spidev0: spidev@0 {
++//		status = "okay";
++//		compatible = "linux,spidev";
++//		spi-max-frequency = <7500000>;
++//		reg = <0>;
++//	};
++//
++//	lowpan0: at86rf233@0 {
++//		compatible = "atmel,at86rf233";
++//		reg = <0>;
++//		interrupt-parent = <&gpiob>;
++//		interrupts = <2 IRQ_TYPE_EDGE_RISING>; /* active high GPIO2*/
++//		reset-gpio = <&gpioa 10 1>;		// GPIO1
++//		sleep-gpio = <&gpiob 7 1>;		// GPIO3
++//		spi-max-frequency = <3000000>;
++//		xtal-trim = /bits/ 8 <0xf>;
++//		spi-cpha=<0>; /* Spi clock is low when inactive */
++//		spi-cpol=<0>; /* Data is valid on clock leading edge */
++//	};
++//};
++
++//&spi5 {
++//	status = "okay";
++//	pinctrl-0 = <&spi5_pins>;
++//	pinctrl-names = "default";
++//	#address-cells = <1>;
++//	#size-cells = <0>;
++//
++//	/* If DMA is needed */
++//	//dmas = <&dmamux1 37 0x400 0x05>,
++//	//       <&dmamux1 38 0x400 0x05>;
++//	//dma-names = "rx", "tx";
++//
++//	cs-gpios = <&gpiof 6 1>;
++//
++//	//st,spi-midi-ns = <500>;
++//
++//	//spidev1: spidev@0 {
++//	//	status = "okay";
++//	//	compatible = "linux,spidev";
++//	//	spi-max-frequency = <7500000>;
++//	//	reg = <0>;
++//	//};
++//
++//	lowpan0: at86rf233@0 {
++//		compatible = "atmel,at86rf233";
++//		reg = <0>;
++//		interrupt-parent = <&gpiob>;
++//		interrupts = <2 IRQ_TYPE_EDGE_RISING>; /* active high GPIO2*/
++//		reset-gpio = <&gpioa 10 1>;		// GPIO1
++//		sleep-gpio = <&gpiob 7 1>;		// GPIO3
++//		spi-max-frequency = <7500000>;
++//		xtal-trim = /bits/ 8 <0xf>;
++//	};
++//};
++
++&dma1 {
++	status = "okay";
++};
++
++&dma2 {
++	status = "okay";
++};
++
++//&spi2 {
++//	status = "okay";
++//	pinctrl-0 = <&spi2_pins>;
++//	pinctrl-names = "default";
++//	#address-cells = <1>;
++//	#size-cells = <0>;
++//	cs-gpios = <&gpioa 11 1>;
++//
++//	//spidev2: spidev@0 {
++//	//	status = "okay";
++//	//	compatible = "linux,spidev";
++//	//	spi-max-frequency = <7500000>;
++//	//	reg = <0>;
++//	//};
++//
++//	at86rf215: at86rf215@0{
++//		compatible = "atmel,at86rf215";
++//		reg = <0>;    /* CE0 */
++//		interrupts = <10 IRQ_TYPE_EDGE_RISING>; /* active high level-sensitive */
++//		interrupt-parent = <&gpiog>;
++//		reset-gpio = <&gpiog 13 1>;
++//		spi-max-frequency = <7500000>;
++//		spi-cpha=<0>; /* Spi clock is low when inactive */
++//		spi-cpol=<0>; /* Data is valid on clock leading edge */
++//	};
++//};
++
++&qspi {
++	/* Disable for XIP */
++	reg = <0x52005000 0x1000>, <0x90000000 0x1000000>;
++	status = "okay";
++
++	flash0: is25wp128@0 {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		compatible = "jedec,spi-nor";
++		spi-max-frequency = <108000000>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++		reg = <0>;
++		status = "okay";
++		partition@0 {
++			label = "reserved";
++			reg = <0x0000000 0x810000>; // 8MB + 64KB (kernel+dtb)
++		};
++		partition@1 {
++			label = "rootfs";
++			reg = <0x810000 0x600000>; // 6MB
++		};
++		partition@2 {
++			label = "reserved-headers";
++			reg = <0xE10000 0x1F0000>; // 2MB - 64KB
++		};
++	};
++};
+diff --git a/arch/arm/boot/dts/stm32h743i-eval.dts b/arch/arm/boot/dts/stm32h743i-eval.dts
+index e4d3c58f3d97..0c3462f542bc 100644
+--- a/arch/arm/boot/dts/stm32h743i-eval.dts
++++ b/arch/arm/boot/dts/stm32h743i-eval.dts
+@@ -113,22 +113,22 @@
+ 	status = "okay";
+ };
+ 
+-&mac {
+-	status = "disabled";
+-	pinctrl-0	= <&ethernet_rmii>;
+-	pinctrl-names	= "default";
+-	phy-mode	= "rmii";
+-	phy-handle	= <&phy0>;
+-
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-		phy0: ethernet-phy@0 {
+-			reg = <0>;
+-		};
+-	};
+-};
++//&mac {
++//	status = "disabled";
++//	pinctrl-0	= <&ethernet_rmii>;
++//	pinctrl-names	= "default";
++//	phy-mode	= "rmii";
++//	phy-handle	= <&phy0>;
++//
++//	mdio0 {
++//		#address-cells = <1>;
++//		#size-cells = <0>;
++//		compatible = "snps,dwmac-mdio";
++//		phy0: ethernet-phy@0 {
++//			reg = <0>;
++//		};
++//	};
++//};
+ 
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";

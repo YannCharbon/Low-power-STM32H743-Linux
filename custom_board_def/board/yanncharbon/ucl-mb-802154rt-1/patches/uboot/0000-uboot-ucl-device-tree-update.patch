@@ -1,0 +1,543 @@
+diff --git a/arch/arm/dts/stm32h743-pinctrl.dtsi b/arch/arm/dts/stm32h743-pinctrl.dtsi
+new file mode 100644
+index 0000000000..1aa9f2ffe0
+--- /dev/null
++++ b/arch/arm/dts/stm32h743-pinctrl.dtsi
+@@ -0,0 +1,104 @@
++#include <dt-bindings/pinctrl/stm32-pinfunc.h>
++
++&pinctrl {
++
++	spi2_pins: spi2-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('A', 12, AF5)>,
++				/* SPI2_CLK */
++				 <STM32_PINMUX('B', 15, AF5)>;
++				/* SPI2_MOSI */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('B', 14, AF5)>;
++				/* SPI2_MISO */
++			bias-disable;
++		};
++	};
++
++	spi3_pins: spi3-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('C', 10, AF5)>,
++				/* SPI3_CLK */
++				 <STM32_PINMUX('C', 12, AF5)>;
++				/* SPI3_MOSI */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('C', 11, AF5)>;
++				/* SPI3_MISO */
++			bias-disable;
++		};
++	};
++
++	spi5_pins: spi5-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('F', 7, AF5)>,
++				/* SPI5_CLK */
++				 <STM32_PINMUX('F', 9, AF5)>;
++				/* SPI5_MOSI */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('F', 8, AF5)>;
++				/* SPI5_MISO */
++			bias-disable;
++		};
++	};
++
++	i2c3_pins_a: i2c3-0 {
++		pins {
++			pinmux = <STM32_PINMUX('A', 8, AF4)>, /* I2C3_SCL */
++				 <STM32_PINMUX('C', 9, AF4)>; /* I2C3_SDA */
++			bias-disable;
++			drive-open-drain;
++			slew-rate = <0>;
++		};
++	};
++
++	usart2_pins: usart2-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('D', 5, AF7)>; /* USART2_TX */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('D', 6, AF7)>; /* USART2_RX */
++			bias-disable;
++		};
++	};
++
++	usart6_pins: usart6-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('G', 14, AF7)>; /* USART6_TX */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('G', 9, AF7)>; /* USART6_RX */
++			bias-disable;
++		};
++	};
++
++	qspi_pins: qspi@0 {
++		pins {
++			pinmux = <STM32_PINMUX('F', 10, AF9)>,	/* CLK */
++				 <STM32_PINMUX('G', 6, AF10)>, 		/* BK1_NCS */
++				 <STM32_PINMUX('D',11, AF9)>,		/* BK1_IO0 */
++				 <STM32_PINMUX('D',12, AF9)>,		/* BK1_IO1 */
++				 <STM32_PINMUX('D',13, AF9)>,		/* BK1_IO3 */
++				 <STM32_PINMUX('E', 2, AF9)>;		/* BK1_IO2 */
++			slew-rate = <2>;
++		};
++	};
++
++};	
+\ No newline at end of file
+diff --git a/arch/arm/dts/stm32h743.dtsi b/arch/arm/dts/stm32h743.dtsi
+index ed6857512f..40339925b6 100644
+--- a/arch/arm/dts/stm32h743.dtsi
++++ b/arch/arm/dts/stm32h743.dtsi
+@@ -538,18 +538,31 @@
+ 		};
+ 
+ 		mac: ethernet@40028000 {
+-			compatible = "st,stm32-dwmac", "snps,dwmac-4.10a";
+-			reg = <0x40028000 0x8000>;
+-			reg-names = "stmmaceth";
+-			interrupts = <61>;
+-			interrupt-names = "macirq";
+-			clock-names = "stmmaceth", "mac-clk-tx", "mac-clk-rx";
+-			clocks = <&rcc ETH1MAC_CK>, <&rcc ETH1TX_CK>, <&rcc ETH1RX_CK>;
+-			st,syscon = <&syscfg 0x4>;
+-			snps,pbl = <8>;
++			compatible = "st,stm32h7-dwmac","snps,dwc-qos-ethernet-4.10";
++ 			reg = <0x40028000 0x8000>;
++ 			reg-names = "stmmaceth";
++ 			clock-names = "stmmaceth", "mac-clk-tx", "mac-clk-rx";
++			clocks = <&rcc ETH1MAC_CK>,<&rcc ETH1TX_CK>,<&rcc ETH1RX_CK>;
++			resets = <&rcc STM32H7_AHB1_RESET(ETH1MAC)>;
++			reset-names = "stmmaceth";
++			interrupts = <61>, <62>;
++			interrupt-names = "macirq", "eth_wake_irq";
+ 			status = "disabled";
+ 		};
+ 
++		qspi: spi@52005000 {
++			compatible = "st,stm32f469-qspi";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x52005000 0x1000>, <0x90000000 0x10000000>;
++			reg-names = "qspi", "qspi_mm";
++			interrupts = <92>;
++			spi-max-frequency = <108000000>;
++			clocks = <&rcc QUADSPI_CK>;
++			resets = <&rcc STM32H7_AHB3_RESET(QUADSPI)>;
++ 			status = "disabled";
++ 		};
++
+ 		pinctrl: pin-controller@58020000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+diff --git a/arch/arm/dts/stm32h743i-disco-u-boot.dtsi b/arch/arm/dts/stm32h743i-disco-u-boot.dtsi
+index 02e28c63f2..368cbea8d5 100644
+--- a/arch/arm/dts/stm32h743i-disco-u-boot.dtsi
++++ b/arch/arm/dts/stm32h743i-disco-u-boot.dtsi
+@@ -1,101 +1,209 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ 
+ #include <stm32h7-u-boot.dtsi>
++ 
++/{
++	chosen {
++		bootargs = "root=/dev/ram rdinit=/linuxrc";
++	};
+ 
+-&fmc {
++	aliases {
++		/* Aliases for gpios so as to use sequence */
++		gpio0 = &gpioa;
++		gpio1 = &gpiob;
++		gpio2 = &gpioc;
++		gpio3 = &gpiod;
++		gpio4 = &gpioe;
++		gpio5 = &gpiof;
++		gpio6 = &gpiog;
++		gpio7 = &gpioh;
++		gpio8 = &gpioi;
++		gpio9 = &gpioj;
++		gpio10 = &gpiok;
++		spi0 = &qspi;
++	};
+ 
+-	/*
+-	 * Memory configuration from sdram datasheet IS42S32800G-6BLI
+-	 * first bank is bank@0
+-	 * second bank is bank@1
+-	 */
+-	bank1: bank@1 {
+-		st,sdram-control = /bits/ 8 <NO_COL_9
+-					     NO_ROW_12
+-					     MWIDTH_32
+-					     BANKS_4
+-					     CAS_2
+-					     SDCLK_3
+-					     RD_BURST_EN
+-					     RD_PIPE_DL_0>;
+-		st,sdram-timing = /bits/ 8 <TMRD_1
+-					    TXSR_1
+-					    TRAS_1
+-					    TRC_6
+-					    TRP_2
+-					    TWR_1
+-					    TRCD_1>;
+-		st,sdram-refcount = <1539>;
++	button1 {
++		compatible = "st,button1";
++		button-gpio = <&gpioa 9 0>;
++	};
++
++	led1 {
++		compatible = "st,led1";
++		led-gpio = <&gpioc 7 0>;
++	};
++
++	soc {
++
++		qspi: spi@52005000 {
++			compatible = "st,stm32f469-qspi";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x52005000 0x3000>, <0x90000000 0x10000000>;
++			reg-names = "qspi", "qspi_mm";
++			interrupts = <92>;
++			spi-max-frequency = <108000000>;
++			clocks = <&rcc QUADSPI_CK>;
++			resets = <&rcc STM32H7_AHB3_RESET(QUADSPI)>;
++			pinctrl-0 = <&qspi_pins>;
++
++			status = "okay";
++		};
+ 	};
+ };
+ 
++&fmc {
++ 
++ 	/*
++	 * Memory configuration from sdram datasheet W989D6DBG
++ 	 * first bank is bank@0
++ 	 * second bank is bank@1
++	 *
++	 * Info from Datasheet and reference manual
++	 *
++	 * The maximum FMC_CLK/FMC_SDCLK frequency for synchronous accesses is the 
++	 * FMC kernel clock divided by 2
++	 *
++	 * 10: SDCLK period = fmc_ker_ck periods / 2
++	 * 11: SDCLK period = fmc_ker_ck periods / 3
++	 * (fmc_ker_ck = 250 MHz by default)
++	 * SDCLK = 83 MHz when SDCLK_3 (measured)
++ 	 */
++	bank2: bank@1 {
++		st,sdram-control = /bits/ 8 <NO_COL_10
++					     NO_ROW_13
++					     MWIDTH_16
++ 					     BANKS_4
++ 					     CAS_2
++ 					     SDCLK_3
++ 					     RD_BURST_EN
++ 					     RD_PIPE_DL_0>;
++		st,sdram-timing = /bits/ 8 <2	/* TMRD */
++ 					    9	/* TXSR */
++ 					    4	/* TRAS */
++ 					    5	/* TRC */
++ 					    2	/* TRP */
++ 					    2	/* TWR */
++ 					    2	/* TRCD */>;
++		/* refcount = (0.064 / total_row_addr_sdram)*freq - 20 */
++ 		st,sdram-refcount = <632>;
++ 	};
++ };
++
+ &pinctrl {
+ 	fmc_pins: fmc@0 {
+ 		pins {
+-			pinmux = <STM32_PINMUX('D', 0, AF12)>,
+-				 <STM32_PINMUX('D', 1, AF12)>,
+-				 <STM32_PINMUX('D', 8, AF12)>,
+-				 <STM32_PINMUX('D', 9, AF12)>,
+-				 <STM32_PINMUX('D',10, AF12)>,
+-				 <STM32_PINMUX('D',14, AF12)>,
+-				 <STM32_PINMUX('D',15, AF12)>,
+-
+-				 <STM32_PINMUX('E', 0, AF12)>,
+-				 <STM32_PINMUX('E', 1, AF12)>,
+-				 <STM32_PINMUX('E', 7, AF12)>,
+-				 <STM32_PINMUX('E', 8, AF12)>,
+-				 <STM32_PINMUX('E', 9, AF12)>,
+-				 <STM32_PINMUX('E',10, AF12)>,
+-				 <STM32_PINMUX('E',11, AF12)>,
+-				 <STM32_PINMUX('E',12, AF12)>,
+-				 <STM32_PINMUX('E',13, AF12)>,
+-				 <STM32_PINMUX('E',14, AF12)>,
+-				 <STM32_PINMUX('E',15, AF12)>,
+-
+-				 <STM32_PINMUX('F', 0, AF12)>,
+-				 <STM32_PINMUX('F', 1, AF12)>,
+-				 <STM32_PINMUX('F', 2, AF12)>,
+-				 <STM32_PINMUX('F', 3, AF12)>,
+-				 <STM32_PINMUX('F', 4, AF12)>,
+-				 <STM32_PINMUX('F', 5, AF12)>,
+-				 <STM32_PINMUX('F',11, AF12)>,
+-				 <STM32_PINMUX('F',12, AF12)>,
+-				 <STM32_PINMUX('F',13, AF12)>,
+-				 <STM32_PINMUX('F',14, AF12)>,
+-				 <STM32_PINMUX('F',15, AF12)>,
++			pinmux = <STM32_PINMUX('D',14, AF12)>,	/* D0 */
++				 <STM32_PINMUX('D',15, AF12)>,		/* D1 */
++				 <STM32_PINMUX('D', 0, AF12)>,		/* D2 */
++				 <STM32_PINMUX('D', 1, AF12)>,		/* D3 */
++				 <STM32_PINMUX('E', 7, AF12)>,		/* D4 */
++				 <STM32_PINMUX('E', 8, AF12)>,		/* D5 */
++				 <STM32_PINMUX('E', 9, AF12)>,		/* D6 */
++				 <STM32_PINMUX('E',10, AF12)>,		/* D7 */
++				 <STM32_PINMUX('E',11, AF12)>,		/* D8 */
++				 <STM32_PINMUX('E',12, AF12)>,		/* D9 */
++				 <STM32_PINMUX('E',13, AF12)>,		/* D10 */
++				 <STM32_PINMUX('E',14, AF12)>,		/* D11 */
++				 <STM32_PINMUX('E',15, AF12)>,		/* D12 */
++				 <STM32_PINMUX('D', 8, AF12)>,		/* D13 */
++				 <STM32_PINMUX('D', 9, AF12)>,		/* D14 */
++				 <STM32_PINMUX('D',10, AF12)>,		/* D15 */
++				 <STM32_PINMUX('F', 0, AF12)>,		/* A0 */
++				 <STM32_PINMUX('F', 1, AF12)>,		/* A1 */
++				 <STM32_PINMUX('F', 2, AF12)>,		/* A2 */
++				 <STM32_PINMUX('F', 3, AF12)>,		/* A3 */
++				 <STM32_PINMUX('F', 4, AF12)>,		/* A4 */
++				 <STM32_PINMUX('F', 5, AF12)>,		/* A5 */
++				 <STM32_PINMUX('F',12, AF12)>,		/* A6 */
++				 <STM32_PINMUX('F',13, AF12)>,		/* A7 */
++				 <STM32_PINMUX('F',14, AF12)>,		/* A8 */
++				 <STM32_PINMUX('F',15, AF12)>,		/* A9 */
++				 <STM32_PINMUX('G', 0, AF12)>,		/* A10 */
++				 <STM32_PINMUX('G', 1, AF12)>,		/* A11 */
++				 <STM32_PINMUX('G', 2, AF12)>,		/* A12 */
++				 <STM32_PINMUX('G', 4, AF12)>,		/* BA0 */
++				 <STM32_PINMUX('G', 5, AF12)>,		/* BA1 */
++				 <STM32_PINMUX('G', 8, AF12)>,		/* SDCLK */	
++				 <STM32_PINMUX('G',15, AF12)>,		/* SDNCAS */
++				 <STM32_PINMUX('F',11, AF12)>,		/* SDNRAS */
++				 <STM32_PINMUX('B', 5, AF12)>,		/* SDCKE1 */
++				 <STM32_PINMUX('B', 6, AF12)>,		/* SDNE1 */
++				 <STM32_PINMUX('C', 0, AF12)>,		/* SDNWE */
++				 <STM32_PINMUX('E', 0, AF12)>,		/* NBL0 */
++				 <STM32_PINMUX('E', 1, AF12)>;		/* NBL1 */
++ 
++ 			slew-rate = <3>;
++ 		};
++ 	};
+ 
+-				 <STM32_PINMUX('G', 0, AF12)>,
+-				 <STM32_PINMUX('G', 1, AF12)>,
+-				 <STM32_PINMUX('G', 2, AF12)>,
+-				 <STM32_PINMUX('G', 4, AF12)>,
+-				 <STM32_PINMUX('G', 5, AF12)>,
+-				 <STM32_PINMUX('G', 8, AF12)>,
+-				 <STM32_PINMUX('G',15, AF12)>,
++	qspi_pins: qspi@0 {
++		pins {
++			pinmux = <STM32_PINMUX('F', 10, AF9)>,	/* CLK */
++				 <STM32_PINMUX('G', 6, AF10)>, 		/* BK1_NCS */
++				 <STM32_PINMUX('D',11, AF9)>,		/* BK1_IO0 */
++				 <STM32_PINMUX('D',12, AF9)>,		/* BK1_IO1 */
++				 <STM32_PINMUX('D',13, AF9)>,		/* BK1_IO3 */
++				 <STM32_PINMUX('E', 2, AF9)>;		/* BK1_IO2 */
++			slew-rate = <2>;
++		};
++	};
+ 
+-				 <STM32_PINMUX('H', 5, AF12)>,
+-				 <STM32_PINMUX('H', 6, AF12)>,
+-				 <STM32_PINMUX('H', 7, AF12)>,
+-				 <STM32_PINMUX('H', 8, AF12)>,
+-				 <STM32_PINMUX('H', 9, AF12)>,
+-				 <STM32_PINMUX('H',10, AF12)>,
+-				 <STM32_PINMUX('H',11, AF12)>,
+-				 <STM32_PINMUX('H',12, AF12)>,
+-				 <STM32_PINMUX('H',13, AF12)>,
+-				 <STM32_PINMUX('H',14, AF12)>,
+-				 <STM32_PINMUX('H',15, AF12)>,
++	ethernet_mii: mii@0 {
++			pins {
++				pinmux = <STM32_PINMUX('A', 0, AF11)>,		/* ETH_MII_CRS */
++					<STM32_PINMUX('A', 1, AF11)>,			/* ETH_MII_RX_CLK */
++					<STM32_PINMUX('A', 2, AF11)>,			/* ETH_MDIO */
++					<STM32_PINMUX('A', 3, AF11)>,			/* ETH_MII_COL */
++					<STM32_PINMUX('A', 7, AF11)>,			/* ETH_MII_CRS_DV */
++					<STM32_PINMUX('B', 0, AF11)>,			/* ETH_MII_RXD2 */
++					<STM32_PINMUX('B', 1, AF11)>,			/* ETH_MII_RXD3 */
++					<STM32_PINMUX('B', 8, AF11)>,			/* ETH_MII_TXD3 */
++					<STM32_PINMUX('B', 10, AF11)>,			/* ETH_MII_RX_ER */
++					<STM32_PINMUX('B', 11, AF11)>,			/* ETH_MII_TX_EN */
++					<STM32_PINMUX('B',12, AF11)>,			/* ETH_MII_TXD0 */
++					<STM32_PINMUX('B', 13, AF11)>,			/* ETH_MII_TXD1 */
++					<STM32_PINMUX('C', 1, AF11)>,			/* ETH_MDC */
++					<STM32_PINMUX('C', 2, AF11)>,			/* ETH_MII_TXD2 */
++					<STM32_PINMUX('C', 3, AF11)>,			/* ETH_MII_TX_CLK */
++					<STM32_PINMUX('C', 4, AF11)>,			/* ETH_MII_RXD0 */
++					<STM32_PINMUX('C', 5, AF11)>;			/* ETH_MII_RXD1 */
++					slew-rate = <2>;
++			};
++	};
++};
+ 
+-				 <STM32_PINMUX('I', 0, AF12)>,
+-				 <STM32_PINMUX('I', 1, AF12)>,
+-				 <STM32_PINMUX('I', 2, AF12)>,
+-				 <STM32_PINMUX('I', 3, AF12)>,
+-				 <STM32_PINMUX('I', 4, AF12)>,
+-				 <STM32_PINMUX('I', 5, AF12)>,
+-				 <STM32_PINMUX('I', 6, AF12)>,
+-				 <STM32_PINMUX('I', 7, AF12)>,
+-				 <STM32_PINMUX('I', 9, AF12)>,
+-				 <STM32_PINMUX('I',10, AF12)>;
++&qspi {
++	reg = <0x52005000 0x1000>, <0x90000000 0x1000000>;
++	flash0: is25wp128@0 {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		compatible = "jedec,spi-nor";
++		spi-max-frequency = <108000000>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++		reg = <0>;
++	};
++};
+ 
+-			slew-rate = <3>;
++&mac {
++	status = "okay";
++	local-mac-address = [aa 0a 0b 0c 0d dd];
++	pinctrl-0 = <&ethernet_mii>;
++	phy-mode = "mii";
++	phy-handle = <&phy0>;
++	clock_in_out = "input";
++	snps,reset-active-low;
++	snps,reset-gpio = <&gpioa 5 0>;
++	snps,reset-delays-us = <0 100000 100000>;
++	mdio0 {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		compatible = "snps,dwmac-mdio";
++		// PHY is hardware configured for address 1
++		phy0: ethernet-phy@1 {
++			compatible = "smsc,lan8710","smsc,lan8720";
++                        reg = <1>;
+ 		};
+ 	};
+-};
++};
+\ No newline at end of file
+diff --git a/arch/arm/dts/stm32h743i-disco.dts b/arch/arm/dts/stm32h743i-disco.dts
+index 3a01ebd563..a85af07b0e 100644
+--- a/arch/arm/dts/stm32h743i-disco.dts
++++ b/arch/arm/dts/stm32h743i-disco.dts
+@@ -6,10 +6,10 @@
+ 
+ /dts-v1/;
+ #include "stm32h743.dtsi"
+-#include "stm32h7-pinctrl.dtsi"
++#include "stm32h743-pinctrl.dtsi"
+ 
+ / {
+-	model = "STMicroelectronics STM32H743i-Discovery board";
++	model = "UCL-MB-802154RT-1 board (based on UCL-CPUM-H7-2) by Yann Charbon";
+ 	compatible = "st,stm32h743i-disco", "st,stm32h743";
+ 
+ 	chosen {
+@@ -19,57 +19,33 @@
+ 
+ 	memory@d0000000 {
+ 		device_type = "memory";
+-		reg = <0xd0000000 0x2000000>;
++		reg = <0xd0000000 0x4000000>;
+ 	};
+ 
+ 	aliases {
+ 		serial0 = &usart2;
+ 	};
+ 
+-	v3v3: regulator-v3v3 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "v3v3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		regulator-always-on;
+-	};
++	v2v: regulator-v2v {
++ 		compatible = "regulator-fixed";
++		regulator-name = "v2v";
++		regulator-min-microvolt = <2000000>;
++		regulator-max-microvolt = <2000000>;
++ 		regulator-always-on;
++ 	};
+ };
+ 
+ &clk_hse {
+ 	clock-frequency = <25000000>;
+ };
+ 
+-&mac {
+-	status = "disabled";
+-	pinctrl-0	= <&ethernet_rmii>;
+-	pinctrl-names	= "default";
+-	phy-mode	= "rmii";
+-	phy-handle	= <&phy0>;
+-
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-		phy0: ethernet-phy@0 {
+-			reg = <0>;
+-		};
+-	};
+-};
+-
+-&sdmmc1 {
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+-	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+-	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+-	broken-cd;
+-	st,neg-edge;
+-	bus-width = <4>;
+-	vmmc-supply = <&v3v3>;
+-	status = "okay";
+-};
+-
+ &usart2 {
+ 	pinctrl-0 = <&usart2_pins>;
+ 	pinctrl-names = "default";
+ 	status = "okay";
+ };
++
++//&qspi {
++//	pinctrl-0 = <&qspi_pins>;
++// 	status = "okay";
++//};

@@ -1,0 +1,79 @@
+diff --git a/drivers/net/ieee802154/at86rf230.c b/drivers/net/ieee802154/at86rf230.c
+index 7d67f41387f5..137936a4736e 100644
+--- a/drivers/net/ieee802154/at86rf230.c
++++ b/drivers/net/ieee802154/at86rf230.c
+@@ -702,6 +702,7 @@ at86rf230_rx_read_frame_complete(void *context)
+ 	u8 len, lqi;
+ 
+ 	len = buf[1];
++	dev_info(&lp->spi->dev, "[at86rf230_rx_read_frame_complete] : received frame length = %u\n", len);
+ 	if (!ieee802154_is_valid_psdu_len(len)) {
+ 		dev_vdbg(&lp->spi->dev, "corrupted frame received\n");
+ 		len = IEEE802154_MTU;
+@@ -715,6 +716,9 @@ at86rf230_rx_read_frame_complete(void *context)
+ 		return;
+ 	}
+ 
++	print_hex_dump(KERN_INFO, "rx data: ", DUMP_PREFIX_ADDRESS, 16, 1,
++		       buf + 2, len, 1);
++
+ 	skb_put_data(skb, buf + 2, len);
+ 	ieee802154_rx_irqsafe(lp->hw, skb, lqi);
+ 	kfree(ctx);
+@@ -728,28 +732,33 @@ at86rf230_rx_trac_check(void *context)
+ 	u8 *buf = ctx->buf;
+ 	int rc;
+ 
+-	if (IS_ENABLED(CONFIG_IEEE802154_AT86RF230_DEBUGFS)) {
++	//if (IS_ENABLED(CONFIG_IEEE802154_AT86RF230_DEBUGFS)) {
+ 		u8 trac = TRAC_MASK(buf[1]);
+ 
+ 		switch (trac) {
+ 		case TRAC_SUCCESS:
+ 			lp->trac.success++;
++			dev_info(&lp->spi->dev, "[at86rf230_rx_trac_check] : TRAC_SUCCESS\n");
+ 			break;
+ 		case TRAC_SUCCESS_WAIT_FOR_ACK:
+ 			lp->trac.success_wait_for_ack++;
++			dev_info(&lp->spi->dev, "[at86rf230_rx_trac_check] : TRAC_SUCCESS_WAIT_FOR_ACK\n");
+ 			break;
+ 		case TRAC_INVALID:
+ 			lp->trac.invalid++;
++			dev_info(&lp->spi->dev, "[at86rf230_rx_trac_check] : TRAC_INVALID\n");
+ 			break;
+ 		default:
++			dev_info(&lp->spi->dev, "[at86rf230_rx_trac_check] : received other trac status %d\n", trac);
+ 			WARN_ONCE(1, "received rx trac status %d\n", trac);
+ 			break;
+ 		}
+-	}
++	//}
+ 
+ 	buf[0] = CMD_FB;
+ 	ctx->trx.len = AT86RF2XX_MAX_BUF;
+ 	ctx->msg.complete = at86rf230_rx_read_frame_complete;
++	// Retrieving maximum MTU (127) bytes from at86rf233
+ 	rc = spi_async(lp->spi, &ctx->msg);
+ 	if (rc) {
+ 		ctx->trx.len = 2;
+@@ -866,8 +875,13 @@ at86rf230_write_frame(void *context)
+ 
+ 	buf[0] = CMD_FB | CMD_WRITE;
+ 	buf[1] = skb->len + 2;
++
+ 	memcpy(buf + 2, skb->data, skb->len);
+ 	ctx->trx.len = skb->len + 2;
++
++	print_hex_dump(KERN_INFO, "tx data: ", DUMP_PREFIX_ADDRESS, 16, 1,
++			skb->data, skb->len, 1);
++
+ 	ctx->msg.complete = at86rf230_write_frame_complete;
+ 	rc = spi_async(lp->spi, &ctx->msg);
+ 	if (rc) {
+@@ -1804,4 +1818,4 @@ static struct spi_driver at86rf230_driver = {
+ module_spi_driver(at86rf230_driver);
+ 
+ MODULE_DESCRIPTION("AT86RF230 Transceiver Driver");
+-MODULE_LICENSE("GPL v2");
++MODULE_LICENSE("GPL v2");
+\ No newline at end of file

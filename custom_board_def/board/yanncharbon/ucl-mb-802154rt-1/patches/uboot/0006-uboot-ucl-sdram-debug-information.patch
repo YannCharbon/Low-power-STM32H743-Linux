@@ -1,0 +1,36 @@
+diff --git a/drivers/ram/stm32_sdram.c b/drivers/ram/stm32_sdram.c
+index 3e25cc7a01..b4ae9da697 100644
+--- a/drivers/ram/stm32_sdram.c
++++ b/drivers/ram/stm32_sdram.c
+@@ -172,16 +172,22 @@ int stm32_sdram_init(struct udevice *dev)
+ 	u32 ref_count;
+ 	u8 i;
+ 
++	dev_dbg(dev, "#B\n");
++
+ 	/* disable the FMC controller */
+ 	if (params->family == STM32H7_FMC)
+ 		clrbits_le32(&regs->bcr1, FMC_BCR1_FMCEN);
+ 
++	dev_dbg(dev, "params->no_sdram_banks == %d\n", params->no_sdram_banks);
++
+ 	for (i = 0; i < params->no_sdram_banks; i++) {
+ 		control = params->bank_params[i].sdram_control;
+ 		timing = params->bank_params[i].sdram_timing;
+ 		target_bank = params->bank_params[i].target_bank;
+ 		ref_count = params->bank_params[i].sdram_ref_count;
+ 
++		dev_dbg(dev, "target_bank == %d\n", target_bank);
++
+ 		writel(control->sdclk << FMC_SDCR_SDCLK_SHIFT
+ 			| control->cas_latency << FMC_SDCR_CAS_SHIFT
+ 			| control->no_banks << FMC_SDCR_NB_SHIFT
+@@ -364,6 +370,8 @@ static int stm32_fmc_probe(struct udevice *dev)
+ 	int ret;
+ 	fdt_addr_t addr;
+ 
++	dev_dbg(dev, "#A\n");
++
+ 	addr = dev_read_addr(dev);
+ 	if (addr == FDT_ADDR_T_NONE)
+ 		return -EINVAL;

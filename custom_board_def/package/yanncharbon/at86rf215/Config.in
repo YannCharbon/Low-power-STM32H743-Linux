@@ -1,0 +1,7 @@
+config BR2_PACKAGE_AT86RF215
+	bool "at86rf215"
+	depends on BR2_LINUX_KERNEL
+	#depends on SPI_MASTER
+	#select REGMAP_SPI
+	help
+		Driver for AT86RF215 transceiver supporting IEEE 802.15.4g

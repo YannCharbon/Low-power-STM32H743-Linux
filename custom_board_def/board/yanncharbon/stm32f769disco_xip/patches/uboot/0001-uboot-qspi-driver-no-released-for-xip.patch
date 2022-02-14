@@ -1,0 +1,237 @@
+diff --git a/drivers/spi/stm32_qspi.c b/drivers/spi/stm32_qspi.c
+index 8f4aabc..8b0bd06 100644
+--- a/drivers/spi/stm32_qspi.c
++++ b/drivers/spi/stm32_qspi.c
+@@ -135,6 +135,8 @@ static int _stm32_qspi_wait_for_not_busy(struct stm32_qspi_priv *priv)
+ 	u32 sr;
+ 	int ret;
+ 
++	//printf("Gotten in _stm32_qspi_wait_for_not_busy(), at this point Mem mode is %u\n", (priv->regs->ccr >> STM32_QSPI_CCR_FMODE_SHIFT) & 3 );
++
+ 	ret = readl_poll_timeout(&priv->regs->sr, sr,
+ 				 !(sr & STM32_QSPI_SR_BUSY),
+ 				 STM32_BUSY_TIMEOUT_US);
+@@ -150,6 +152,8 @@ static int _stm32_qspi_wait_cmd(struct stm32_qspi_priv *priv,
+ 	u32 sr;
+ 	int ret = 0;
+ 
++	//printf("Gotten in _stm32_qspi_wait_cmd()\n");
++
+ 	if (op->data.nbytes) {
+ 		ret = readl_poll_timeout(&priv->regs->sr, sr,
+ 					 sr & STM32_QSPI_SR_TCF,
+@@ -172,18 +176,24 @@ static int _stm32_qspi_wait_cmd(struct stm32_qspi_priv *priv,
+ 
+ static void _stm32_qspi_read_fifo(u8 *val, void __iomem *addr)
+ {
++	//printf("Gotten in _stm32_qspi_read_fifo()\n");
++
+ 	*val = readb(addr);
+ 	WATCHDOG_RESET();
+ }
+ 
+ static void _stm32_qspi_write_fifo(u8 *val, void __iomem *addr)
+ {
++	//printf("Gotten in _stm32_qspi_write_fifo()\n");
++
+ 	writeb(*val, addr);
+ }
+ 
+ static int _stm32_qspi_poll(struct stm32_qspi_priv *priv,
+ 			    const struct spi_mem_op *op)
+ {
++	//printf("Gotten in _stm32_qspi_poll()\n");
++
+ 	void (*fifo)(u8 *val, void __iomem *addr);
+ 	u32 len = op->data.nbytes, sr;
+ 	u8 *buf;
+@@ -216,6 +226,9 @@ static int _stm32_qspi_poll(struct stm32_qspi_priv *priv,
+ static int stm32_qspi_mm(struct stm32_qspi_priv *priv,
+ 			 const struct spi_mem_op *op)
+ {
++	//printf("Gotten in stm32_qspi_mm() -- op->data.buf.in=0x%08X , priv->mm_base=0x%08X , op->addr.val=0x%08X , priv->mm_base + op->addr.val =0x%08X , op->data.nbytes=0x%08X\n",
++	// op->data.buf.in, priv->mm_base, op->addr.val, priv->mm_base + op->addr.val, op->data.nbytes);
++
+ 	memcpy_fromio(op->data.buf.in, priv->mm_base + op->addr.val,
+ 		      op->data.nbytes);
+ 
+@@ -226,6 +239,8 @@ static int _stm32_qspi_tx(struct stm32_qspi_priv *priv,
+ 			  const struct spi_mem_op *op,
+ 			  u8 mode)
+ {
++	//printf("Gotten in _stm32_qspi_tx()\n");
++
+ 	if (!op->data.nbytes)
+ 		return 0;
+ 
+@@ -237,6 +252,8 @@ static int _stm32_qspi_tx(struct stm32_qspi_priv *priv,
+ 
+ static int _stm32_qspi_get_mode(u8 buswidth)
+ {
++	//printf("Gotten in _stm32_qspi_get_mode()\n");
++
+ 	if (buswidth == 4)
+ 		return 3;
+ 
+@@ -251,6 +268,8 @@ static int stm32_qspi_exec_op(struct spi_slave *slave,
+ 	u8 mode = STM32_QSPI_CCR_IND_WRITE;
+ 	int timeout, ret;
+ 
++	//printf("Gotten in stm32_qspi_exec_op()\n");
++
+ 	dev_dbg(slave->dev, "cmd:%#x mode:%d.%d.%d.%d addr:%#llx len:%#x\n",
+ 		op->cmd.opcode, op->cmd.buswidth, op->addr.buswidth,
+ 		op->dummy.buswidth, op->data.buswidth,
+@@ -263,10 +282,14 @@ static int stm32_qspi_exec_op(struct spi_slave *slave,
+ 	addr_max = op->addr.val + op->data.nbytes + 1;
+ 
+ 	if (op->data.dir == SPI_MEM_DATA_IN && op->data.nbytes) {
+-		if (addr_max < priv->mm_size && op->addr.buswidth)
++		if (addr_max < priv->mm_size && op->addr.buswidth){ 
++			//printf(" -- : mode = STM32_QSPI_CCR_MEM_MAP\n");
+ 			mode = STM32_QSPI_CCR_MEM_MAP;
+-		else
++		}	
++		else{ 
++			//printf(" -- : mode = STM32_QSPI_CCR_IND_READ\n");
+ 			mode = STM32_QSPI_CCR_IND_READ;
++		}	
+ 	}
+ 
+ 	if (op->data.nbytes)
+@@ -338,6 +361,8 @@ static int stm32_qspi_probe(struct udevice *bus)
+ 	struct reset_ctl reset_ctl;
+ 	int ret;
+ 
++	//printf("Gotten in stm32_qspi_probe()\n");
++
+ 	ret = dev_read_resource_byname(bus, "qspi", &res);
+ 	if (ret) {
+ 		dev_err(bus, "can't get regs base addresses(ret = %d)!\n", ret);
+@@ -360,6 +385,8 @@ static int stm32_qspi_probe(struct udevice *bus)
+ 
+ 	dev_dbg(bus, "regs=<0x%p> mapped=<0x%p> mapped_size=<0x%lx>\n",
+ 		priv->regs, priv->mm_base, priv->mm_size);
++	printf("regs=<0x%p> mapped=<0x%p> mapped_size=<0x%lx>\n",
++		priv->regs, priv->mm_base, priv->mm_size);
+ 
+ 	ret = clk_get_by_index(bus, 0, &clk);
+ 	if (ret < 0)
+@@ -408,6 +435,8 @@ static int stm32_qspi_claim_bus(struct udevice *dev)
+ 	struct dm_spi_slave_plat *slave_plat = dev_get_parent_plat(dev);
+ 	int slave_cs = slave_plat->cs;
+ 
++	//printf("Gotten in stm32_qspi_claim_bus()\n");
++
+ 	if (slave_cs >= STM32_QSPI_MAX_CHIP)
+ 		return -ENODEV;
+ 
+@@ -442,13 +471,21 @@ static int stm32_qspi_release_bus(struct udevice *dev)
+ {
+ 	struct stm32_qspi_priv *priv = dev_get_priv(dev->parent);
+ 
+-	clrbits_le32(&priv->regs->cr, STM32_QSPI_CR_EN);
++	//printf("Gotten in stm32_qspi_release_bus()\n");
++
++	// ADDED YC
++	if(! (((priv->regs->ccr >> STM32_QSPI_CCR_FMODE_SHIFT) & 3 ) == STM32_QSPI_CCR_MEM_MAP)){
++		//printf("Gotten A\n");
++		clrbits_le32(&priv->regs->cr, STM32_QSPI_CR_EN);
++	}		
+ 
+ 	return 0;
+ }
+ 
+ static int stm32_qspi_set_speed(struct udevice *bus, uint speed)
+ {
++	//printf("Gotten in stm32_qspi_set_speed()\n");
++
+ 	struct stm32_qspi_priv *priv = dev_get_priv(bus);
+ 	u32 qspi_clk = priv->clock_rate;
+ 	u32 prescaler = 255;
+@@ -488,6 +525,8 @@ static int stm32_qspi_set_speed(struct udevice *bus, uint speed)
+ 
+ static int stm32_qspi_set_mode(struct udevice *bus, uint mode)
+ {
++	//printf("Gotten in stm32_qspi_set_mode()\n");
++
+ 	struct stm32_qspi_priv *priv = dev_get_priv(bus);
+ 	int ret;
+ 	const char *str_rx, *str_tx;
+@@ -523,6 +562,67 @@ static int stm32_qspi_set_mode(struct udevice *bus, uint mode)
+ 	dev_dbg(bus, "regs=%p, mode=%d rx: %s, tx: %s\n",
+ 		priv->regs, mode, str_rx, str_tx);
+ 
++	/////// ADDED BY YC !!!!!!!
++	/*
++	QUADSPI->CR  &= ~( QUADSPI_CR_EN );
++	QUADSPI->CCR &= ~( QUADSPI_CCR_INSTRUCTION );
++	QUADSPI->CCR |= ( 3 << QUADSPI_CCR_FMODE_Pos |
++						3 << QUADSPI_CCR_ADMODE_Pos |
++						3 << QUADSPI_CCR_DMODE_Pos |
++						3 << QUADSPI_CCR_IMODE_Pos |
++						0xEC << QUADSPI_CCR_INSTRUCTION_Pos |
++						6 << QUADSPI_CCR_DCYC_Pos );
++	QUADSPI->CR  |=  ( QUADSPI_CR_EN );
++  */
++	static int exec_count = 0;
++	u32 cr, ccr;
++
++	cr = &priv->regs->cr;
++	ccr = &priv->regs->ccr;
++
++	printf(" -- exec_count=%d\n", exec_count);
++
++	if (exec_count++ == 1){
++		/*clrbits_le32(&priv->regs->cr, STM32_QSPI_CR_EN);
++		clrbits_le32(&priv->regs->ccr, 0xFF);
++		setbits_le32(&priv->regs->ccr, 3 << STM32_QSPI_CCR_FMODE_SHIFT | 
++										3 << STM32_QSPI_CCR_ADMODE_SHIFT |
++										3 << STM32_QSPI_CCR_DMODE_SHIFT | 
++										3 << STM32_QSPI_CCR_IMODE_SHIFT |
++										0xEC << 0x0 |
++										6 << STM32_QSPI_CCR_DCYC_SHIFT );
++		
++		setbits_le32(&priv->regs->cr, STM32_QSPI_CR_EN);*/
++		//writel(ccr, &priv->regs->ccr);
++
++		/*priv->regs->cr &= ~STM32_QSPI_CR_EN;
++		priv->regs->ccr = 0;
++		priv->regs->ccr |= ( 3 << STM32_QSPI_CCR_FMODE_SHIFT | 
++								3 << STM32_QSPI_CCR_ADMODE_SHIFT |
++								3 << STM32_QSPI_CCR_DMODE_SHIFT | 
++								3 << STM32_QSPI_CCR_IMODE_SHIFT |
++								0xEC << 0x0 |
++								6 << STM32_QSPI_CCR_DCYC_SHIFT );
++
++		priv->regs->cr |= STM32_QSPI_CR_EN;
++
++		__asm( "NOP" );
++		// Test reading values from memory-mapped Flash.
++		int* ptr = (int*)0x90000000;
++		int idx;
++		for (idx = 0; idx < 100; idx++){
++			printf("%c", *ptr);
++			ptr += 2;
++		}
++		for (idx = 0; idx < 100; idx++){
++			printf("0x%08X\n", *ptr);
++			ptr += 2;
++		}*/
++	}
++
++	
++	///////
++
+ 	return 0;
+ }
+ 
+@@ -540,7 +640,7 @@ static const struct dm_spi_ops stm32_qspi_ops = {
+ 
+ static const struct udevice_id stm32_qspi_ids[] = {
+ 	{ .compatible = "st,stm32f469-qspi" },
+-	{ }
++	{ .compatible = "st,stm32-qspi"}
+ };
+ 
+ U_BOOT_DRIVER(stm32_qspi) = {

@@ -1,0 +1,96 @@
+diff --git a/arch/arm/boot/dts/stm32f769-disco.dts b/arch/arm/boot/dts/stm32f769-disco.dts
+index 0ce7fbc20..c348870c2 100644
+--- a/arch/arm/boot/dts/stm32f769-disco.dts
++++ b/arch/arm/boot/dts/stm32f769-disco.dts
+@@ -41,7 +41,7 @@
+  */
+ 
+ /dts-v1/;
+-#include "stm32f746.dtsi"
++#include "stm32f769.dtsi"
+ #include "stm32f769-pinctrl.dtsi"
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/gpio/gpio.h>
+@@ -153,3 +153,32 @@ &usbotg_hs {
+ 	pinctrl-names = "default";
+ 	status = "okay";
+ };
++
++&qspi {
++	reg = <0xA0001000 0x1000>, <0x90000000 0x4000000>;
++	flash0: mx66l51235l@0 {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		compatible = "jedec,spi-nor";
++		spi-max-frequency = <108000000>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++		memory-map = <0x90000000 0x4000000>;
++		reg = <0>;
++
++		// 64MB total
++		partition@0 {
++			label = "rootfs";
++			reg = <0x0000000 0x400000>; // 4MB
++		};
++		partition@1 {
++			label = "kernel-dtb";
++			reg = <0x0400000 0x400000>; // 4MB
++			// read-only; add to avoid modifying kernel
++		};
++		partition@2 {
++			label = "freespace";
++			reg = <0x0800000 0x3800000>; // 56MB
++		};
++	};
++};
+diff --git a/arch/arm/boot/dts/stm32f769-pinctrl.dtsi b/arch/arm/boot/dts/stm32f769-pinctrl.dtsi
+index 31005dd99..4b530b13e 100644
+--- a/arch/arm/boot/dts/stm32f769-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32f769-pinctrl.dtsi
+@@ -8,4 +8,16 @@
+ 
+ &pinctrl{
+ 	compatible = "st,stm32f769-pinctrl";
++
++	qspi_pins: qspi@0 {
++		pins {
++			pinmux = <STM32_PINMUX('B', 2, AF9)>, /* CLK */
++				 <STM32_PINMUX('B', 6, AF10)>, /* BK1_NCS */
++				 <STM32_PINMUX('C', 9, AF9)>, /* BK1_IO0 */
++				 <STM32_PINMUX('C',10, AF9)>, /* BK1_IO1 */
++				 <STM32_PINMUX('D',13, AF9)>, /* BK1_IO3 */
++				 <STM32_PINMUX('E', 2, AF9)>; /* BK1_IO2 */
++			slew-rate = <2>;
++		};
++	};
+ };
+diff --git a/arch/arm/boot/dts/stm32f769.dtsi b/arch/arm/boot/dts/stm32f769.dtsi
+new file mode 100644
+index 000000000..ed0d23218
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32f769.dtsi
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause) */
++/* Copyright (C) STMicroelectronics 2017 - All Rights Reserved */
++
++#include "stm32f746.dtsi"
++
++/ {
++	soc {
++		qspi: spi@A0001000 {
++			compatible = "st,stm32f469-qspi";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0xA0001000 0x1000>, <0x90000000 0x10000000>;
++			reg-names = "qspi", "qspi_mm";
++			interrupts = <92>;
++			spi-max-frequency = <108000000>;
++			clocks = <&rcc 0 STM32F7_AHB3_CLOCK(QSPI)>;
++			resets = <&rcc STM32F7_AHB3_RESET(QSPI)>;
++			pinctrl-0 = <&qspi_pins>;
++
++			status = "okay";
++		};
++	};
++};

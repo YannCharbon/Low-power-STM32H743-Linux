@@ -1,0 +1,96 @@
+diff --git a/drivers/clk/clk-uclass.c b/drivers/clk/clk-uclass.c
+index cea38a4c6e..5e19791d72 100644
+--- a/drivers/clk/clk-uclass.c
++++ b/drivers/clk/clk-uclass.c
+@@ -405,6 +405,7 @@ int clk_get_by_name(struct udevice *dev, const char *name, struct clk *clk)
+ 	clk->dev = NULL;
+ 
+ 	index = dev_read_stringlist_search(dev, "clock-names", name);
++	log_debug("CLK index = %d\n", index);
+ 	if (index < 0) {
+ 		debug("fdt_stringlist_search() failed: %d\n", index);
+ 		return index;
+@@ -471,7 +472,7 @@ int clk_request(struct udevice *dev, struct clk *clk)
+ {
+ 	const struct clk_ops *ops;
+ 
+-	debug("%s(dev=%p, clk=%p)\n", __func__, dev, clk);
++	log_debug("%s(dev=%p, clk=%p)\n", __func__, dev, clk);
+ 	if (!clk)
+ 		return 0;
+ 	ops = clk_dev_ops(dev);
+diff --git a/drivers/clk/clk_stm32h7.c b/drivers/clk/clk_stm32h7.c
+index 73e494397c..6907592b00 100644
+--- a/drivers/clk/clk_stm32h7.c
++++ b/drivers/clk/clk_stm32h7.c
+@@ -509,12 +509,15 @@ static u32 stm32_get_PLL1_rate(struct stm32_rcc_regs *regs,
+ 	switch (readl(&regs->pllckselr) & RCC_PLLCKSELR_PLLSRC_MASK) {
+ 	case RCC_PLLCKSELR_PLLSRC_HSI:
+ 		pllsrc = stm32_get_rate(regs, HSI);
++		log_debug("PLL source is HSI\n");
+ 		break;
+ 	case RCC_PLLCKSELR_PLLSRC_CSI:
+ 		pllsrc = stm32_get_rate(regs, CSI);
++		log_debug("PLL source is CSI\n");
+ 		break;
+ 	case RCC_PLLCKSELR_PLLSRC_HSE:
+ 		pllsrc = stm32_get_rate(regs, HSE);
++		log_debug("PLL source is HSE\n");
+ 		break;
+ 	case RCC_PLLCKSELR_PLLSRC_NO_CLK:
+ 		/* shouldn't happen */
+@@ -649,17 +652,21 @@ static ulong stm32_clk_get_rate(struct clk *clk)
+ 	switch (source) {
+ 	case RCC_CFGR_SW_PLL1:
+ 		sysclk = stm32_get_PLL1_rate(regs, PLL1_P_CK);
++		dev_dbg(clk->dev, "system clock: source is PLL1\n");
+ 		break;
+ 	case RCC_CFGR_SW_HSE:
+ 		sysclk = stm32_get_rate(regs, HSE);
++		dev_dbg(clk->dev, "system clock: source is HSE\n");
+ 		break;
+ 
+ 	case RCC_CFGR_SW_CSI:
+ 		sysclk = stm32_get_rate(regs, CSI);
++		dev_dbg(clk->dev, "system clock: source is CSI\n");
+ 		break;
+ 
+ 	case RCC_CFGR_SW_HSI:
+ 		sysclk = stm32_get_rate(regs, HSI);
++		dev_dbg(clk->dev, "system clock: source is HSI\n");
+ 		break;
+ 	}
+ 
+@@ -676,18 +683,24 @@ static ulong stm32_clk_get_rate(struct clk *clk)
+ 		/* get D1 domain Core prescaler */
+ 		idx = (d1cfgr & RCC_D1CFGR_D1CPRE_DIVIDER) >>
+ 		      RCC_D1CFGR_D1CPRE_SHIFT;
++		dev_dbg(clk->dev, "D1CPRE=%d\n", prescaler_table[idx]);
+ 		sysclk = sysclk / prescaler_table[idx];
++	} else {
++		dev_dbg(clk->dev, "D1CPRE=1\n");
+ 	}
+ 
+ 	if (d1cfgr & RCC_D1CFGR_HPRE_DIVIDED) {
+ 		/* get D1 domain AHB prescaler */
+ 		idx = d1cfgr & RCC_D1CFGR_HPRE_DIVIDER;
++		dev_dbg(clk->dev, "HPRE=%d\n", prescaler_table[idx]);
+ 		sysclk = sysclk / prescaler_table[idx];
++	} else {
++		dev_dbg(clk->dev, "HPRE=1\n");
+ 	}
+ 
+ 	gate_offset = clk_map[clk->id].gate_offset;
+ 
+-	dev_dbg(clk->dev, "clk->id=%ld gate_offset=0x%x sysclk=%ld\n",
++	dev_dbg(clk->dev, "clk->id=%ld gate_offset=0x%x sysclk(after HPRE)=%ld\n",
+ 		clk->id, gate_offset, sysclk);
+ 
+ 	switch (gate_offset) {
+@@ -876,4 +889,4 @@ U_BOOT_DRIVER(stm32h7_clk) = {
+ 	.probe			= stm32_clk_probe,
+ 	.priv_auto	= sizeof(struct stm32_clk),
+ 	.flags			= DM_FLAG_PRE_RELOC,
+-};
+\ No newline at end of file
++};

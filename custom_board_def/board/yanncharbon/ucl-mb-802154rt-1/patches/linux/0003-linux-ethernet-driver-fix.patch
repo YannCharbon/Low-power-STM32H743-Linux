@@ -1,0 +1,22 @@
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index e09851c7da9b..835ac178bc8c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4855,8 +4855,6 @@ int stmmac_resume(struct device *dev)
+ 			stmmac_mdio_reset(priv->mii);
+ 	}
+ 
+-	netif_device_attach(ndev);
+-
+ 	mutex_lock(&priv->lock);
+ 
+ 	stmmac_reset_queues_param(priv);
+@@ -4880,6 +4878,8 @@ int stmmac_resume(struct device *dev)
+ 
+ 	phylink_mac_change(priv->phylink, true);
+ 
++	netif_device_attach(ndev);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(stmmac_resume);

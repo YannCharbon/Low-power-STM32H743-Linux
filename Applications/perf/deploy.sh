@@ -1,0 +1,1 @@
+cp perfmeas /home/yann/TM/custom_board_def/board/yanncharbon/ucl-mb-802154rt-1/rootfs_overlay/root/perfmeas

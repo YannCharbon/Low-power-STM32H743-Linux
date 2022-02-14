@@ -1,0 +1,130 @@
+diff --git a/cmd/Kconfig b/cmd/Kconfig
+index 3a857b3f6e..9a9362ac19 100644
+--- a/cmd/Kconfig
++++ b/cmd/Kconfig
+@@ -749,6 +749,12 @@ config CMD_STRINGS
+ 	  within the range are displayed. The minimum number of characters
+ 	  for a sequence to be considered a string can be provided.
+ 
++config CMD_SETENVRAM
++	bool "setenvram"
++	default n
++	help
++	  Set env variable from RAM memory
++
+ endmenu
+ 
+ menu "Compression commands"
+diff --git a/cmd/Makefile b/cmd/Makefile
+index ed3669411e..9e3a2e5762 100644
+--- a/cmd/Makefile
++++ b/cmd/Makefile
+@@ -138,6 +138,7 @@ obj-$(CONFIG_CMD_SATA) += sata.o
+ obj-$(CONFIG_CMD_NVME) += nvme.o
+ obj-$(CONFIG_SANDBOX) += sb.o
+ obj-$(CONFIG_CMD_SF) += sf.o
++obj-$(CONFIG_CMD_SETENVRAM) += setenvram.o
+ obj-$(CONFIG_CMD_SCSI) += scsi.o disk.o
+ obj-$(CONFIG_CMD_SHA1SUM) += sha1sum.o
+ obj-$(CONFIG_CMD_SETEXPR) += setexpr.o
+diff --git a/cmd/setenvram.c b/cmd/setenvram.c
+new file mode 100644
+index 0000000000..c5eea54f1d
+--- /dev/null
++++ b/cmd/setenvram.c
+@@ -0,0 +1,94 @@
++/*
++ * Set env variable from memory
++ * Copyright (c) https://github.com/bwenstar/uboot-imx/commit/5996e854f82ecb9005d2b9546a71fca458784204
++ */
++
++#include <common.h>
++#include <config.h>
++#include <command.h>
++#include <mapmem.h>
++
++int do_setenvram(struct cmd_tbl *cmdtp, int flag, int argc, char *const argv[]) {
++
++    unsigned int *addr;
++    unsigned long len;
++    uint32_t val;
++    char buffer[200];
++    char type;
++    char returntype;
++
++    if ( argc < 3 || argc > 4 )  {
++        printf ("Usage:\n%s\n", cmdtp->usage);
++        return 1;
++    }
++
++    addr = (char *)simple_strtol(argv[2], NULL, 16);
++
++    if ( !addr ) {
++        printf ("Usage:\n%s\n", cmdtp->usage);
++        return 1;
++    }
++
++    if ( argc == 4 ) {
++        len = simple_strtol(argv[3], NULL, 16);
++        if ( !len || len >= buffer ) {
++            printf ("Usage:\n%s\n", cmdtp->usage);
++            return 1;
++        }
++    }
++
++    int option = strlen(argv[0]);
++
++    if ( option > 2 && argv[0][option-3] == '.' ) {
++        type = argv[0][option-2];
++        returntype = argv[0][option-1];
++    } else if ( option > 2 && argv[0][option-2] == '.' ) {
++        type = argv[0][option-1];
++    } else {
++        printf ("Usage:\n%s\n", cmdtp->usage);
++        return 1;
++    }
++
++    switch ( type ) {
++        case 'b':
++            val = *((unsigned char *)(addr));
++            break;
++        case 'w':
++            addr = (unsigned short *)simple_strtol(argv[2], NULL, 16);
++            val = ntohs(*addr);
++            break;
++        case 'l':
++            addr = (unsigned int *)simple_strtol(argv[2], NULL, 16);
++            val = htonl(*addr);
++            break;
++        case 'k':
++            addr = (unsigned int *)simple_strtol(argv[2], NULL, 16);
++            val = (*addr);
++            break;
++        case 's':
++            memset(buffer, 0, sizeof(buffer));
++            memcpy(buffer, addr, len);
++            break;
++        default:
++            return 0;
++    }
++
++    if ( returntype == 'd' ) {
++        sprintf(buffer, "%d", val);
++    } else if ( type != 's' ) {
++        sprintf(buffer, "0x%x", val);
++    }
++
++    env_set(argv[1], buffer);
++    return 0;
++}
++
++/* ------------------------------------------------------------------------- */
++
++U_BOOT_CMD(
++    setenvram, 4, 0, do_setenvram,
++    "set environment variable from ram",
++    "name addr {len}\n"
++    "[.b, .w, .l, .s, .k] name address {max_length}\n"
++    "    - set environment variable 'name' from addr 'addr'\n"
++);
+\ No newline at end of file

@@ -1,0 +1,22 @@
+diff --git a/drivers/reset/stm32-reset.c b/drivers/reset/stm32-reset.c
+index bbc6b135a9..19ab3208b2 100644
+--- a/drivers/reset/stm32-reset.c
++++ b/drivers/reset/stm32-reset.c
+@@ -76,6 +76,8 @@ static int stm32_reset_deassert(struct reset_ctl *reset_ctl)
+ 	else
+ 		clrbits_le32(priv->base + bank, BIT(offset));
+ 
++	dev_dbg(reset_ctl->dev, "Exiting\n");
++
+ 	return 0;
+ }
+ 
+@@ -90,6 +92,8 @@ static int stm32_reset_probe(struct udevice *dev)
+ {
+ 	struct stm32_reset_priv *priv = dev_get_priv(dev);
+ 
++	dev_dbg(dev, "Probing\n");
++
+ 	priv->base = dev_read_addr(dev);
+ 	if (priv->base == FDT_ADDR_T_NONE) {
+ 		/* for MFD, get address of parent */

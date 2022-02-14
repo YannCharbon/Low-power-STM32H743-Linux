@@ -1,0 +1,12 @@
+diff --git a/flash_uboot.sh b/flash_uboot.sh
+new file mode 100755
+index 0000000000..39fc2a4a85
+--- /dev/null
++++ b/flash_uboot.sh
+@@ -0,0 +1,5 @@
++openocd \
++		-f board/stm32h7x3i_eval.cfg \
++        -c "program u-boot.bin 0x08000000" \
++		-c "reset run" -c "shutdown"
++ 
+\ No newline at end of file

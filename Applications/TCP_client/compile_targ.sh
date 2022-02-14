@@ -1,0 +1,1 @@
+../../buildroot/output/host/bin/arm-linux-gcc main.c -o tcpclient

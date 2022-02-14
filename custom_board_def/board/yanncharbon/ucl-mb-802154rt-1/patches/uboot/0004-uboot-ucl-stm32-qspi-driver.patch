@@ -1,0 +1,78 @@
+diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
+index d07e9a28af..19cafaf09c 100644
+--- a/drivers/spi/Kconfig
++++ b/drivers/spi/Kconfig
+@@ -384,12 +384,20 @@ config SPI_SUNXI
+ 
+ config STM32_QSPI
+ 	bool "STM32F7 QSPI driver"
+-	depends on STM32F4 || STM32F7 || ARCH_STM32MP
++	depends on STM32F4 || STM32F7 || STM32H7 || ARCH_STM32MP
+ 	help
+ 	  Enable the STM32F7 Quad-SPI (QSPI) driver. This driver can be
+ 	  used to access the SPI NOR flash chips on platforms embedding
+ 	  this ST IP core.
+ 
++config STM32_QSPI_MEM_MAPPED
++	bool "STM32F7 QSPI driver memory mapped mode"
++	depends on STM32_QSPI
++	help
++	  This option forces the driver not to release the QSPI bus after
++	  a read operation to allow accessing SPI flash in memory mapped mode
++	  (SPI flash mapped at 0x90000000).
++
+ config STM32_SPI
+ 	bool "STM32 SPI driver"
+ 	depends on ARCH_STM32MP
+diff --git a/drivers/spi/stm32_qspi.c b/drivers/spi/stm32_qspi.c
+index 8f4aabc3d1..637c7402af 100644
+--- a/drivers/spi/stm32_qspi.c
++++ b/drivers/spi/stm32_qspi.c
+@@ -393,12 +393,18 @@ static int stm32_qspi_probe(struct udevice *bus)
+ 
+ 	priv->cs_used = -1;
+ 
++	dev_dbg(bus, "setbits_le32 - A\n");
++
+ 	setbits_le32(&priv->regs->cr, STM32_QSPI_CR_SSHIFT);
+ 
++	dev_dbg(bus, "setbits_le32 - B\n");
++
+ 	/* Set dcr fsize to max address */
+ 	setbits_le32(&priv->regs->dcr,
+ 		     STM32_QSPI_DCR_FSIZE_MASK << STM32_QSPI_DCR_FSIZE_SHIFT);
+ 
++	dev_dbg(bus, "C\n");
++
+ 	return 0;
+ }
+ 
+@@ -439,13 +445,23 @@ static int stm32_qspi_claim_bus(struct udevice *dev)
+ }
+ 
+ static int stm32_qspi_release_bus(struct udevice *dev)
+-{
+-	struct stm32_qspi_priv *priv = dev_get_priv(dev->parent);
++ {
++ 	struct stm32_qspi_priv *priv = dev_get_priv(dev->parent);
+ 
++#ifdef CONFIG_STM32_QSPI_MEM_MAPPED
++	/* 
++	 * Avoid disabling QSPI memory when a memory map read occurs
++	 * to allow XIP from the memory (memory mapped mode required for XIP)
++	 */
++	if(! (((priv->regs->ccr >> STM32_QSPI_CCR_FMODE_SHIFT) & 3 ) == STM32_QSPI_CCR_MEM_MAP)){
++		clrbits_le32(&priv->regs->cr, STM32_QSPI_CR_EN);
++	}
++#else
+ 	clrbits_le32(&priv->regs->cr, STM32_QSPI_CR_EN);
+-
+-	return 0;
+-}
++#endif
++ 
++ 	return 0;
++ }
+ 
+ static int stm32_qspi_set_speed(struct udevice *bus, uint speed)
+ {

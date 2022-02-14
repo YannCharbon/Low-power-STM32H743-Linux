@@ -1,0 +1,129 @@
+diff --git a/arch/arm/lib/bootm.c b/arch/arm/lib/bootm.c
+index f60ee3a..a6be5cf 100644
+--- a/arch/arm/lib/bootm.c
++++ b/arch/arm/lib/bootm.c
+@@ -125,6 +125,13 @@ static void announce_and_cleanup(int fake)
+ 	dm_remove_devices_flags(DM_REMOVE_ACTIVE_ALL);
+ 
+ 	cleanup_before_linux();
++
++	///// ADDED YC
++	u32* cr = (u32*)0xa0001000;
++	u32* ccr = (u32*)0xa0001014;
++	printf("QSPI STM32_QSPI_CR_EN = %u, STM32_QSPI_CCR_FMODE = %u\n", *cr & 1 , ((*ccr >> 26) & 3 ) );
++	printf("Finished cleaning -> starting\n");
++	/////
+ }
+ 
+ static void setup_start_tag (struct bd_info *bd)
+@@ -412,9 +419,18 @@ static void boot_jump_linux(bootm_headers_t *images, int flag)
+ 			armv7_init_nonsec();
+ 			secure_ram_addr(_do_nonsec_entry)(kernel_entry,
+ 							  0, machid, r2);
+-		} else
++		} else 
+ #endif
++		{	
++			///// ADDED YC
++			u32* cr = (u32*)0xa0001000;
++			u32* ccr = (u32*)0xa0001014;
++			printf("QSPI STM32_QSPI_CR_EN = %u, STM32_QSPI_CCR_FMODE = %u\n", *cr & 1 , ((*ccr >> 26) & 3 ) );
++			printf("Finished cleaning -> starting\n");
++			/////
++
+ 			kernel_entry(0, machid, r2);
++		}
+ 	}
+ #endif
+ }
+diff --git a/board/st/stm32f746-disco/stm32f746-disco.c b/board/st/stm32f746-disco/stm32f746-disco.c
+index efa38a0..fb803ce 100644
+--- a/board/st/stm32f746-disco/stm32f746-disco.c
++++ b/board/st/stm32f746-disco/stm32f746-disco.c
+@@ -111,10 +111,17 @@ int board_late_init(void)
+ 				   &gpio, GPIOD_IS_IN);
+ 
+ 	if (dm_gpio_is_valid(&gpio)) {
+-		if (dm_gpio_get_value(&gpio))
+-			puts("usr button is at HIGH LEVEL\n");
+-		else
+-			puts("usr button is at LOW LEVEL\n");
++		if (dm_gpio_get_value(&gpio)){
++			env_set("button", "HIGH");
++			puts("-------------\n-");
++			puts("usr button is at HIGH LEVEL (pressed)\n");
++		} else {
++			env_set("button", "LOW");
++			puts("-------------\n-");
++			puts("usr button is at LOW LEVEL (released)\n");
++		} 	
++		puts("~ Usage : Released -> boot XIP from SPI flash | Pressed -> update DTB and kernel in SPI flash from TFTP\n");
++		puts("-------------\n-");		
+ 	}
+ 
+ 	return 0;
+diff --git a/common/image.c b/common/image.c
+index 59c52a1..a739036 100644
+--- a/common/image.c
++++ b/common/image.c
+@@ -418,6 +418,12 @@ static void print_decomp_msg(int comp_type, int type, bool is_xip)
+ {
+ 	const char *name = genimg_get_type_name(type);
+ 
++	if (is_xip){
++		printf("Image is XIP\n");
++	} else {
++		printf("Image is not XIP\n");
++	}
++
+ 	if (comp_type == IH_COMP_NONE)
+ 		printf("   %s %s\n", is_xip ? "XIP" : "Loading", name);
+ 	else
+@@ -446,6 +452,7 @@ int image_decomp(int comp, ulong load, ulong image_start, int type,
+ 	int ret = 0;
+ 
+ 	*load_end = load;
++	printf("image_decomp() : load=0x%08X , image_start=0x%08X\n", load, image_start);
+ 	print_decomp_msg(comp, type, load == image_start);
+ 
+ 	/*
+diff --git a/include/configs/stm32f746-disco.h b/include/configs/stm32f746-disco.h
+index 08d050a..070b358 100644
+--- a/include/configs/stm32f746-disco.h
++++ b/include/configs/stm32f746-disco.h
+@@ -50,13 +50,28 @@
+ 
+ #include <config_distro_bootcmd.h>
+ #define CONFIG_EXTRA_ENV_SETTINGS				\
+-			"kernel_addr_r=0xC0008000\0"		\
+-			"fdtfile=stm32f746-disco.dtb\0"	\
+-			"fdt_addr_r=0xC0408000\0"		\
+-			"scriptaddr=0xC0418000\0"		\
+-			"pxefile_addr_r=0xC0428000\0" \
+-			"ramdisk_addr_r=0xC0438000\0"		\
+-			BOOTENV
++			"pxefile_addr_r=0xC0008000\0" \
++			"ipaddr=192.168.0.10\0" \
++			"serverip=192.168.0.4\0" \
++			"dtb_file=stm32f769/stm32f769-disco.dtb\0" \
++			"kernel_file_xip=stm32f769/uxipImage\0" \
++			"kernel_file=stm32f769/zImage\0" \
++			"rootfs_file=stm32f769/rootfs.jffs2\0" \
++			"fdt_addr_r=0x90000000\0" \
++			"kernel_addr_r=0x90010000\0" \
++			"tmp_ram_addr_r=0xc0000000\0" \
++			"dtb_sf_offset=0x0\0" \
++			"kernel_sf_offset=0x10000\0" \
++			"rootfs_sf_offset=0x0\0" \
++			"max_kernel_sf_size=0x3F0000\0" \
++			"max_dtb_sf_size=0x10000\0" \
++			"max_rootfs_sf_size=0x400000\0" \
++			"netboot=echo ""Booting from TFTP"" && tftp ${fdt_addr_r} ${dtb_file} && tftp ${kernel_addr_r} ${kernel_file} && bootz ${kernel_addr_r} - ${fdt_addr_r}\0" \
++			"spiboot=echo ""Booting from SPI flash XIP mode"" && sf probe 0 108000000 && sf read ${tmp_ram_addr_r} ${dtb_sf_offset} ${max_dtb_sf_size} && bootm ${kernel_addr_r} - ${tmp_ram_addr_r}\0" \
++			"mmcboot=echo ""Booting from MMC"" && mmc dev 0 && fatload mmc 0 ${fdt_addr_r} /${dtb_file} && fatload mmc 0 ${kernel_addr_r} /${kernel_file} && icache off && bootz ${kernel_addr_r} - ${fdt_addr_r}\0" \
++			"updatespi=echo ""Updating SPI flash from TFTP"" && sf probe 0 108000000 && tftp ${tmp_ram_addr_r} ${dtb_file} && sf update ${tmp_ram_addr_r} ${dtb_sf_offset} ${filesize} && tftp ${tmp_ram_addr_r} ${kernel_file_xip} && sf update ${tmp_ram_addr_r} ${kernel_sf_offset} ${filesize}\0" \
++			"conditionalboot=if test \"${button}\" = \"LOW\"; then run spiboot; fi; run updatespi\0" \
++ 			BOOTENV
+ 
+ #define CONFIG_DISPLAY_BOARDINFO
+ 

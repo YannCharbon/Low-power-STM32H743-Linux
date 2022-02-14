@@ -1,0 +1,606 @@
+diff --git a/arch/arm/mach-stm32/Makefile b/arch/arm/mach-stm32/Makefile
+index c80d80c199d3..c73b50400812 100644
+--- a/arch/arm/mach-stm32/Makefile
++++ b/arch/arm/mach-stm32/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-y += board-dt.o
++obj-y += suspend.o pm.o
+diff --git a/arch/arm/mach-stm32/board-dt.c b/arch/arm/mach-stm32/board-dt.c
+index 011d57b488c2..883500aca2f3 100644
+--- a/arch/arm/mach-stm32/board-dt.c
++++ b/arch/arm/mach-stm32/board-dt.c
+@@ -11,6 +11,13 @@
+ #include <asm/v7m.h>
+ #endif
+ 
++#include "pm.h"
++
++static void __init stm32_dt_device_init(void)
++{
++	stm32_pm_init();
++}
++
+ static const char *const stm32_compat[] __initconst = {
+ 	"st,stm32f429",
+ 	"st,stm32f469",
+@@ -22,6 +29,7 @@ static const char *const stm32_compat[] __initconst = {
+ };
+ 
+ DT_MACHINE_START(STM32DT, "STM32 (Device Tree Support)")
++	.init_machine	= stm32_dt_device_init,
+ 	.dt_compat = stm32_compat,
+ #ifdef CONFIG_ARM_SINGLE_ARMV7M
+ 	.restart = armv7m_restart,
+diff --git a/arch/arm/mach-stm32/pm.c b/arch/arm/mach-stm32/pm.c
+new file mode 100644
+index 000000000000..5017ca6abef8
+--- /dev/null
++++ b/arch/arm/mach-stm32/pm.c
+@@ -0,0 +1,288 @@
++/*
++ * arch/arm/mach-stm32/pm.c
++ *
++ * STM32 Power Management code
++ *
++ * Copyright (C) 2016 Emcraft Systems
++ * Yuri Tikhonov, Emcraft Systems, <yur@emcraft.com>
++ * Yann Charbon, HEIG-VD, <yann.charbon@ik.me>
++ *
++ * See file CREDITS for list of people who contributed to this
++ * project.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of
++ * the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
++ * MA 02111-1307 USA
++ */
++
++#include <linux/suspend.h>
++#include <linux/sched.h>
++#include <linux/proc_fs.h>
++#include <linux/interrupt.h>
++#include <linux/sysfs.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/io.h>
++#include <linux/delay.h>
++
++//#include <asm/gpio.h>
++
++//#include <mach/platform.h>
++#include "stm32.h"
++//#include <mach/irqs.h>
++//#include <mach/fb.h>
++//#include <mach/iomux.h>
++
++/*
++ * Assembler-level imports (from SRAM)
++ */
++#define SRAM_TEXT	__attribute__((section (".sram.text"),__long_call__))
++SRAM_TEXT void stm32_suspend_to_ram(void);
++//extern u32 stm32_suspend_moder[STM32_GPIO_PORTS];
++
++/*
++ * Wake-up GPIO
++ */
++//#define STM32_WAKEUP_GPIO_PORT	9	/* PJ4/LCD_R5, also see iomux.c */
++//#define STM32_WAKEUP_GPIO_PIN	4
++//#define STM32_WAKEUP_GPIO_GPIO	STM32_GPIO_PORTPIN2NUM(STM32_WAKEUP_GPIO_PORT, \
++//						       STM32_WAKEUP_GPIO_PIN)
++
++
++/*
++ * Cortex-M3 System Control Register
++ */
++#define CM7_SCR_BASE		0xE000ED10
++#define CM7_SCR_SLEEPDEEP	(1 << 2)
++
++/*
++ * RCC registers bits and masks
++ */
++#define STM32_RCC_CR_HSE_BIT	16
++#define STM32_RCC_CR_PLL_BIT	24
++#define STM32_RCC_CR_I2S_BIT	26
++#define STM32_RCC_CR_SAI_BIT	28
++
++#define STM32_RCC_CFGR_SW_MSK	0x3
++
++/*
++ * PWR registers bits and masks
++ */
++#define STM32_PWR_CR_LPDS	(1 << 0)
++#define STM32_PWR_CR_FPDS	(1 << 9)
++#define STM32_PWR_CR_LPUDS	(1 << 10)
++#define STM32_PWR_CR_ODEN	(1 << 16)
++#define STM32_PWR_CR_ODSWEN	(1 << 17)
++#define STM32_PWR_CR_UDEN	(0x3 << 18)
++
++#define STM32_PWR_CSR_ODRDY	(1 << 16)
++
++/*
++ * Different data we saved on entering, and restore on exiting
++ * from PM
++ */
++static struct {
++	struct {
++		u32	cr;
++		u32	cfgr;
++	} rcc;
++	struct {
++		u32	cr;
++	} pwr;
++	struct {
++		u32	gcr;
++	} ltdc;
++} stm32_pm_bck;
++
++/*
++ * Device data structure
++ */
++static struct platform_driver stm32_pm_driver = {
++	.driver = {
++		.name = "stm32_pm",
++	},
++};
++
++/*
++ * Validate suspend state
++ * @state		State being entered
++ * @returns		1->valid, 0->invalid
++ */
++static int stm32_pm_valid(suspend_state_t state)
++{
++	int ret;
++
++	switch (state) {
++
++	case PM_SUSPEND_ON:
++	case PM_SUSPEND_STANDBY:
++	case PM_SUSPEND_MEM:
++		ret = 1;
++		break;
++	default:
++		ret = 0;
++		break;
++	}
++
++	return ret;
++}
++
++/*
++ * Prepare system hardware to suspend. Some settings are reset on
++ * exiting from Stop, so we save these here, and restore then
++ */
++static void stm32_pm_prepare_to_suspend(void)
++{
++
++	/*
++	 * Save RCC
++	 */
++	stm32_pm_bck.rcc.cr = STM32_RCC->cr;
++	stm32_pm_bck.rcc.cfgr = STM32_RCC->cfgr & STM32_RCC_CFGR_SW_MSK;
++
++	/*
++	 * Save over-drive settings
++	 */
++	stm32_pm_bck.pwr.cr = STM32_PWR->cr;
++}
++
++/*
++ * Prepare system hardware to resume
++ */
++static void stm32_pm_prepare_to_resume(void)
++{
++	//u32 pll[] = { STM32_RCC_CR_HSE_BIT, STM32_RCC_CR_PLL_BIT,
++	//	      STM32_RCC_CR_I2S_BIT, STM32_RCC_CR_SAI_BIT };
++	//int i;
++//
++//
++	///*
++	// * Restore over-drive
++	// */
++	//if (stm32_pm_bck.pwr.cr & STM32_PWR_CR_ODSWEN) {
++	//	STM32_PWR->cr |= STM32_PWR_CR_ODEN;
++	//	while (!(STM32_PWR->csr & STM32_PWR_CSR_ODRDY));
++	//	STM32_PWR->cr |= STM32_PWR_CR_ODSWEN;
++	//}
++//
++	///*
++	// * Restore RCC PLLs. Assume here that RDY bit is next after the
++	// * appropriate ON bit in RCC CR register
++	// */
++	//for (i = 0; i < ARRAY_SIZE(pll); i++) {
++	//	if (!(stm32_pm_bck.rcc.cr & (1 << pll[i])))
++	//		continue;
++	//	STM32_RCC->cr |= 1 << pll[i];
++	//	while (!(STM32_RCC->cr & (1 << (pll[i] + 1))));
++	//}
++	//STM32_RCC->cfgr &= ~STM32_RCC_CFGR_SW_MSK;
++	//STM32_RCC->cfgr |= stm32_pm_bck.rcc.cfgr;
++	//while ((STM32_RCC->cfgr & STM32_RCC_CFGR_SW_MSK) !=
++	//	stm32_pm_bck.rcc.cfgr);
++	return;
++
++}
++
++/*
++ * Enter suspend
++ * @state		State being entered
++ * @returns		0->success, <0->error code
++ */
++static int stm32_pm_enter(suspend_state_t state)
++{
++	volatile u32 *scr = (void *)CM7_SCR_BASE;
++
++	/*
++	 * Prepare the system hardware to suspend
++	 */
++	stm32_pm_prepare_to_suspend();
++
++	printk(KERN_INFO "CPU suspending\n");
++
++	/*
++	 * Allow STOP mode. Enter SLEEP DEEP on WFI.
++	 */
++	*scr |= CM7_SCR_SLEEPDEEP;
++
++	/*
++	 * Jump to suspend code in SRAM
++	 */
++	stm32_suspend_to_ram();
++
++	/*
++	 * Switch to Normal mode. Disable SLEEP DEEP on WFI.
++	 */
++	*scr &= ~CM7_SCR_SLEEPDEEP;
++
++	/*
++	 * Prepare the system hardware to resume
++	 */
++	stm32_pm_prepare_to_resume();
++
++	return 0;
++}
++
++/*
++ * Power Management operations
++ */
++static struct platform_suspend_ops stm32_pm_ops = {
++	.valid = stm32_pm_valid,
++	.enter = stm32_pm_enter,
++};
++
++/*
++ * Driver init
++ * @returns		0->success, <0->error code
++ */
++int __init stm32_pm_init(void)
++{
++	int ret;
++
++	/*
++	 * Register the PM driver
++	 */
++	if (platform_driver_register(&stm32_pm_driver) != 0) {
++		printk(KERN_ERR "%s: register failed\n", __func__);
++		ret = -ENODEV;
++		goto out;
++	}
++
++	/*
++	 * Register PM operations
++	 */
++	suspend_set_ops(&stm32_pm_ops);
++
++	/*
++	 * Here, means success
++	 */
++	printk(KERN_INFO "Power Management for STM32\n");
++	ret = 0;
++out:
++	return ret;
++}
++
++/*
++ * Driver clean-up
++ */
++static void __exit stm32_pm_cleanup(void)
++{
++	platform_driver_unregister(&stm32_pm_driver);
++}
++
++module_init(stm32_pm_init);
++module_exit(stm32_pm_cleanup);
++
++MODULE_AUTHOR("Yuri Tikhonov");
++MODULE_DESCRIPTION("STM32 PM driver");
++MODULE_LICENSE("GPL");
+diff --git a/arch/arm/mach-stm32/pm.h b/arch/arm/mach-stm32/pm.h
+new file mode 100644
+index 000000000000..84a5cdfc150e
+--- /dev/null
++++ b/arch/arm/mach-stm32/pm.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ *  Copyright (C) 2022 Yann Charbon
++ */
++
++#ifndef _STM32_PM_H
++#define _STM32_PM_H
++
++#ifdef CONFIG_PM
++extern int __init stm32_pm_init(void);
++#else
++static inline void __init stm32_pm_init(void) { }
++#endif
++
++#endif /* _STM32_PM_H */
+diff --git a/arch/arm/mach-stm32/stm32.h b/arch/arm/mach-stm32/stm32.h
+new file mode 100644
+index 000000000000..a97e2e141480
+--- /dev/null
++++ b/arch/arm/mach-stm32/stm32.h
+@@ -0,0 +1,141 @@
++/*
++ * (C) Copyright 2011
++ * Yuri Tikhonov, Emcraft Systems, yur@emcraft.com
++ *
++ * Added support for STM32F1
++ * (C) Copyright 2012
++ * Alexander Potashev, Emcraft Systems, aspotashev@emcraft.com
++ *
++ * Added new RCC registers added in STM32F4{2,3}xxx and STM32F7
++ * (C) Copyright 2015
++ * Alexander Potashev, Emcraft Systems, aspotashev@emcraft.com
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of
++ * the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
++ * MA 02111-1307 USA
++ */
++
++/*
++ * STM32 processor definitions
++ */
++#ifndef _MACH_STM32_H_
++#define _MACH_STM32_H_
++
++/******************************************************************************
++ * Peripheral memory map
++ ******************************************************************************/
++
++#define STM32_PERIPH_BASE	0x40000000
++#define STM32_APB1PERITH_BASE	(STM32_PERIPH_BASE + 0x00000000)
++#define STM32_APB2PERITH_BASE	(STM32_PERIPH_BASE + 0x00010000)
++#define STM32_AHB1PERITH_BASE	(STM32_PERIPH_BASE + 0x00020000)
++#define STM32_AHB2PERITH_BASE	0x48020000
++
++#ifndef __ASSEMBLY__
++
++#include <asm/types.h>
++
++/******************************************************************************
++ * Reset and Clock Control
++ ******************************************************************************/
++
++/*
++ * RCC register map
++ */
++struct stm32_rcc_regs {
++	u32	cr;		/* RCC clock control			      */
++#ifndef CONFIG_ARCH_STM32F1
++	u32	pllcfgr;	/* RCC PLL configuration		      */
++#endif
++	u32	cfgr;		/* RCC clock configuration		      */
++	u32	cir;		/* RCC clock interrupt			      */
++#ifndef CONFIG_ARCH_STM32F1
++	u32	ahb1rstr;	/* RCC AHB1 peripheral reset		      */
++	u32	ahb2rstr;	/* RCC AHB2 peripheral reset		      */
++	u32	ahb3rstr;	/* RCC AHB3 peripheral reset		      */
++	u32	rsv0;
++	u32	apb1rstr;	/* RCC APB1 peripheral reset		      */
++	u32	apb2rstr;	/* RCC APB2 peripheral reset		      */
++	u32	rsv1[2];
++#else
++	u32	apb2rstr;	/* RCC APB2 peripheral reset		      */
++	u32	apb1rstr;	/* RCC APB1 peripheral reset		      */
++#endif
++
++	u32	ahb1enr;	/* RCC AHB1 peripheral clock enable	      */
++#ifndef CONFIG_ARCH_STM32F1
++	u32	ahb2enr;	/* RCC AHB2 peripheral clock enable	      */
++	u32	ahb3enr;	/* RCC AHB3 peripheral clock enable	      */
++	u32	rsv2;
++	u32	apb1enr;	/* RCC APB1 peripheral clock enable	      */
++	u32	apb2enr;	/* RCC APB2 peripheral clock enable	      */
++#else
++	u32	apb2enr;	/* RCC APB2 peripheral clock enable	      */
++	u32	apb1enr;	/* RCC APB1 peripheral clock enable	      */
++#endif
++
++#ifndef CONFIG_ARCH_STM32F1
++	u32	rsv3[2];
++	u32	ahb1lpenr;	/* RCC AHB1 periph clk enable in low pwr mode */
++	u32	ahb2lpenr;	/* RCC AHB2 periph clk enable in low pwr mode */
++	u32	ahb3lpenr;	/* RCC AHB3 periph clk enable in low pwr mode */
++	u32	rsv4;
++	u32	apb1lpenr;	/* RCC APB1 periph clk enable in low pwr mode */
++	u32	apb2lpenr;	/* RCC APB2 periph clk enable in low pwr mode */
++	u32	rsv5[2];
++#endif
++	u32	bdcr;		/* RCC Backup domain control		      */
++	u32	csr;		/* RCC clock control & status		      */
++#ifndef CONFIG_ARCH_STM32F1
++	u32	rsv6[2];
++	u32	sscgr;		/* RCC spread spectrum clock generation	      */
++	u32	plli2scfgr;	/* RCC PLLI2S configuration		      */
++#endif
++
++	/* Only for STM32F4{2,3}xxx and STM32F7 */
++	u32	pllsaicfgr;	/* RCC PLLSAI configuration */
++	u32	dckcfgr;	/* RCC Dedicated Clocks configuration */
++};
++
++/*
++ * RCC registers base
++ */
++#ifdef CONFIG_ARCH_STM32F1
++#define STM32_RCC_BASE		(STM32_AHB1PERITH_BASE + 0x1000) /* STM32F1 */
++#else
++#define STM32_RCC_BASE		0x58024400 /* STM32H7 */
++#endif
++#define STM32_RCC	((volatile struct stm32_rcc_regs *)STM32_RCC_BASE)
++
++/******************************************************************************
++ * Power Control
++ ******************************************************************************/
++
++/*
++ * Power Control module (PWR) register map
++ */
++struct stm32_pwr_regs {
++	u32	cr;		/* PWR power control register */
++	u32	csr;		/* PWR power control/status register */
++};
++
++/*
++ * PWR registers base
++ */
++#define STM32_PWR_BASE		0x58024800
++#define STM32_PWR	((volatile struct stm32_pwr_regs *)STM32_PWR_BASE)
++
++#endif /* __ASSEMBLY__ */
++
++#endif /* _MACH_STM32_H_ */
+\ No newline at end of file
+diff --git a/arch/arm/mach-stm32/suspend.S b/arch/arm/mach-stm32/suspend.S
+new file mode 100644
+index 000000000000..2795ef601307
+--- /dev/null
++++ b/arch/arm/mach-stm32/suspend.S
+@@ -0,0 +1,102 @@
++/*
++ * arch/arm/mach-stm32/suspend.S
++ *
++ * STM32 low-level suspend-to-RAM code. This code is relocated to
++ * SRAM in stm32_sram_relocate() during stm32_init() execution in
++ * arch/arm/mach-stm32/stm32_platform.c
++ *
++ * Copyright (C) 2016 Emcraft Systems
++ * Yuri Tikhonov, Emcraft Systems, <yur@emcraft.com>
++ * Yann Charbon, HEIG-VD, <yann.charbon@ik.me>
++ *
++ * See file CREDITS for list of people who contributed to this
++ * project.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; either version 2 of
++ * the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
++ * MA 02111-1307 USA
++ */
++
++//#include "gpio.h"
++
++/*
++ * This code runs from eSRAM (on-chip SRAM).
++ * TODO : Add SRAM section in vmlinux.ld.S linker script
++ */
++
++	.global stm32_suspend_to_ram
++	.section .sram.text, "ax"
++	.align 4
++	.thumb_func
++
++stm32_suspend_to_ram:
++	/*
++	 * Put DDR into self-refresh
++	 */
++	ldr r0, fmc_sdcmr
++	ldr r1, fmc_sdsr
++1:
++	//ldr r2, [r1]		/* Wait for !FMC_SDSR[BUSY] (this does not exists on H7)*/
++	//ands r2, #0x20
++	//bne 1b
++
++	mov r2, #0xD		/* Program FMC_SDcMR[CTB2][MODE=0b101] */
++	str r2, [r0]
++
++	ldr r2, [r1]		/* Check FMC_SDSR[MODES2] = 0b01 */
++	and r2, #0x18
++	cmp r2, #0x8
++	bne 1b
++
++	/*
++	 * Pass memory barriers, and switch to Sleep
++	 */
++	dsb
++	isb
++	wfi
++
++	/*
++	 * When at this point, we have been woken from Deep Sleep.
++	 */
++
++	/*
++	 * Take DDR out of self-refresh
++	 */
++	ldr r0, fmc_sdcmr
++	ldr r1, fmc_sdsr
++2:
++	//ldr r2, [r1]		/* Wait for !FMC_SDSR[BUSY] (this does not exists on H7)*/
++	//ands r2, #0x20
++	//bne 4b
++
++	mov r2, #0x8		/* Program FMC_SDCMR[CTB2][MODE=0b000] */
++	str r2, [r0]
++
++	ldr r2, [r1]		/* Check FMC_SDSR[MODES2] */
++	and r2, #0x18
++	cmp r2, #0x0
++	bne 2b
++
++	/*
++	 * Return to the kernel code running from DDR
++	 */
++	dsb
++	isb
++	bx lr
++
++	.align 4
++fmc_sdcmr:
++	.word 0x52004150
++fmc_sdsr:
++	.word 0x52004158
+\ No newline at end of file

@@ -1,0 +1,199 @@
+diff --git a/common/miiphyutil.c b/common/miiphyutil.c
+index 7d4d15ed91..b26a35631b 100644
+--- a/common/miiphyutil.c
++++ b/common/miiphyutil.c
+@@ -90,7 +90,12 @@ void mdio_free(struct mii_dev *bus)
+ int mdio_register(struct mii_dev *bus)
+ {
+ 	if (!bus || !bus->read || !bus->write)
+-		return -1;
++	debug("Register MDIO for bus=%s\n", bus->name);
++
++	if (!bus || !bus->read || !bus->write){
++		debug("bus is null or no read nor write\n");
++ 		return -1;
++	}
+ 
+ 	/* check if we have unique name */
+ 	if (miiphy_get_dev_by_name(bus->name)) {
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index 69acb69460..c42e71e908 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -472,6 +472,7 @@ static LIST_HEAD(phy_drivers);
+ 
+ int phy_init(void)
+ {
++	log_debug("Init PHY\n");
+ #ifdef CONFIG_NEEDS_MANUAL_RELOC
+ 	/*
+ 	 * The pointers inside phy_drivers also needs to be updated incase of
+@@ -569,6 +570,7 @@ int phy_init(void)
+ 
+ int phy_register(struct phy_driver *drv)
+ {
++	log_debug("Registering PHY device %s\n", drv->name);
+ 	INIT_LIST_HEAD(&drv->list);
+ 	list_add_tail(&drv->list, &phy_drivers);
+ 
+@@ -621,6 +623,8 @@ static int phy_probe(struct phy_device *phydev)
+ {
+ 	int err = 0;
+ 
++	log_debug("phy_probe\n");
++
+ 	phydev->advertising = phydev->drv->features;
+ 	phydev->supported = phydev->drv->features;
+ 
+@@ -651,6 +655,7 @@ static struct phy_driver *get_phy_driver(struct phy_device *phydev,
+ 
+ 	list_for_each(entry, &phy_drivers) {
+ 		drv = list_entry(entry, struct phy_driver, list);
++		log_debug("found PHY driver %s\n", drv->name);
+ 		if ((drv->uid & drv->mask) == (phy_id & drv->mask))
+ 			return drv;
+ 	}
+@@ -665,6 +670,8 @@ static struct phy_device *phy_device_create(struct mii_dev *bus, int addr,
+ {
+ 	struct phy_device *dev;
+ 
++	log_debug("Creating new PHY device\n");
++
+ 	/*
+ 	 * We allocate the device, and initialize the
+ 	 * default values
+@@ -719,6 +726,8 @@ int __weak get_phy_id(struct mii_dev *bus, int addr, int devad, u32 *phy_id)
+ {
+ 	int phy_reg;
+ 
++	log_debug("Getting PHY ID\n");
++
+ 	/*
+ 	 * Grab the bits from PHYIR1, and put them
+ 	 * in the upper half
+@@ -738,6 +747,8 @@ int __weak get_phy_id(struct mii_dev *bus, int addr, int devad, u32 *phy_id)
+ 
+ 	*phy_id |= (phy_reg & 0xffff);
+ 
++	log_debug("phy_reg = %u (PHYIR1 and PHYIR2)\n", phy_reg);
++
+ 	return 0;
+ }
+ 
+@@ -748,7 +759,10 @@ static struct phy_device *create_phy_by_mask(struct mii_dev *bus,
+ 	u32 phy_id = 0xffffffff;
+ 	bool is_c45;
+ 
++	log_debug("A\n");
++
+ 	while (phy_mask) {
++		log_debug("phy_mask=%x\n", phy_mask);
+ 		int addr = ffs(phy_mask) - 1;
+ 		int r = get_phy_id(bus, addr, devad, &phy_id);
+ 
+@@ -781,7 +795,10 @@ static struct phy_device *search_for_existing_phy(struct mii_dev *bus,
+ 	while (phy_mask) {
+ 		int addr = ffs(phy_mask) - 1;
+ 
++		log_debug("--1 addr=%d, phy_mask=%x, bus->phymap[addr]=%d\n", addr, phy_mask, bus->phymap[addr]);
++
+ 		if (bus->phymap[addr]) {
++			log_debug("--2\n");
+ 			bus->phymap[addr]->interface = interface;
+ 			return bus->phymap[addr];
+ 		}
+@@ -807,18 +824,28 @@ static struct phy_device *get_phy_device_by_mask(struct mii_dev *bus,
+ 	};
+ 	int i, devad_cnt;
+ 
++	log_debug("#1 - interface=%d\n", interface);
++
+ 	devad_cnt = sizeof(devad)/sizeof(int);
++	log_debug("#2\n");
+ 	phydev = search_for_existing_phy(bus, phy_mask, interface);
++	log_debug("#3 - interface=%d\n", interface);
+ 	if (phydev)
+ 		return phydev;
+ 	/* try different access clauses  */
+ 	for (i = 0; i < devad_cnt; i++) {
++		log_debug("#4 - i=%d, bus->name=%s, phy_mask=%x, interface=%d\n", i, bus->name, phy_mask, interface);
+ 		phydev = create_phy_by_mask(bus, phy_mask,
+ 					    devad[i], interface);
+-		if (IS_ERR(phydev))
++		log_debug("#5\n");
++		if (IS_ERR(phydev)){ 
++			log_debug("#6\n");
+ 			return NULL;
+-		if (phydev)
++		}	
++		if (phydev){
++			log_debug("#7\n"); 
+ 			return phydev;
++		}	
+ 	}
+ 
+ 	debug("\n%s PHY: ", bus->name);
+@@ -917,12 +944,18 @@ int miiphy_reset(const char *devname, unsigned char addr)
+ struct phy_device *phy_find_by_mask(struct mii_dev *bus, uint phy_mask,
+ 				    phy_interface_t interface)
+ {
++	log_debug("A\n");
++
+ 	/* Reset the bus */
+ 	if (bus->reset) {
++		log_debug("B\n");
+ 		bus->reset(bus);
++		log_debug("C\n");
+ 
+ 		/* Wait 15ms to make sure the PHY has come out of hard reset */
+ 		mdelay(15);
++
++		log_debug("D\n");
+ 	}
+ 
+ 	return get_phy_device_by_mask(bus, phy_mask, interface);
+@@ -1038,27 +1071,41 @@ struct phy_device *phy_connect(struct mii_dev *bus, int addr,
+ 	struct phy_device *phydev = NULL;
+ 	uint mask = (addr >= 0) ? (1 << addr) : 0xffffffff;
+ 
++	log_debug("# 1\n");
++
+ #ifdef CONFIG_PHY_FIXED
++	log_debug("# 2 CONFIG_PHY_FIXED\n");
+ 	phydev = phy_connect_fixed(bus, dev, interface);
+ #endif
+ 
+ #ifdef CONFIG_PHY_NCSI
++	log_debug("# 2 CONFIG_PHY_FIXED (phydev=%d)\n", (int)phydev);
+ 	if (!phydev)
+ 		phydev = phy_device_create(bus, 0, PHY_NCSI_ID, false, interface);
+ #endif
+ 
+ #ifdef CONFIG_PHY_XILINX_GMII2RGMII
++	log_debug("# 3 CONFIG_PHY_XILINX_GMII2RGMII (phydev=%d)\n", (int)phydev);
+ 	if (!phydev)
+ 		phydev = phy_connect_gmii2rgmii(bus, dev, interface);
+ #endif
+ 
+-	if (!phydev)
++	log_debug("# 4 (phydev=%d, mask=%x, interface=%d)\n", (int)phydev, mask, interface);
++
++	if (!phydev) {
+ 		phydev = phy_find_by_mask(bus, mask, interface);
++	} 
+ 
+-	if (phydev)
++	log_debug("# 5 (phydev=%d)\n", (int)phydev);
++
++	if (phydev) {
++		log_debug("# 6\n");
+ 		phy_connect_dev(phydev, dev);
+-	else
++	} else
+ 		printf("Could not get PHY for %s: addr %d\n", bus->name, addr);
++
++	log_debug("# 7\n");
++	
+ 	return phydev;
+ }
+ 

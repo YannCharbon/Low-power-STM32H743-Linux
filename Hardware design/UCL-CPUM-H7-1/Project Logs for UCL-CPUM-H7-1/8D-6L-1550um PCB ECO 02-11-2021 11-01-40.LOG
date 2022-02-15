@@ -1,0 +1,88 @@
+Added Component: Designator=J1(EXT_IOS)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=GPIO4 Pin=J1-1
+Added Pin To Net: NetName=GPIO3 Pin=J1-2
+Added Pin To Net: NetName=GND Pin=J1-3
+Added Pin To Net: NetName=USART6_TX Pin=J1-4
+Added Pin To Net: NetName=USART6_CTS Pin=J1-5
+Added Pin To Net: NetName=USART6_RTS Pin=J1-6
+Added Pin To Net: NetName=USART6_CK Pin=J1-7
+Added Pin To Net: NetName=USART6_RX Pin=J1-8
+Added Pin To Net: NetName=GPIO17 Pin=J1-9
+Added Pin To Net: NetName=GPIO16 Pin=J1-10
+Added Pin To Net: NetName=USART2_ CK Pin=J1-11
+Added Pin To Net: NetName=USART2_ RX Pin=J1-12
+Added Pin To Net: NetName=USART2_ TX Pin=J1-13
+Added Pin To Net: NetName=USART2_ RTS Pin=J1-14
+Added Pin To Net: NetName=USART2_ CTS Pin=J1-15
+Added Pin To Net: NetName=GPIO9 Pin=J1-16
+Added Pin To Net: NetName=SPI3_NSS Pin=J1-18
+Added Pin To Net: NetName=SPI3_MOSI Pin=J1-19
+Added Pin To Net: NetName=SPI3_MISO Pin=J1-20
+Added Pin To Net: NetName=SPI3_SCK Pin=J1-21
+Added Pin To Net: NetName=GND Pin=J1-22
+Added Pin To Net: NetName=JTDI Pin=J1-23
+Added Pin To Net: NetName=JTCK-SWCLK Pin=J1-24
+Added Pin To Net: NetName=JTDO/TRACESWO Pin=J1-25
+Added Pin To Net: NetName=NJTRST Pin=J1-26
+Added Pin To Net: NetName=JTMS-SWDIO Pin=J1-27
+Added Pin To Net: NetName=GPIO1 Pin=J1-28
+Added Pin To Net: NetName=GPIO0 Pin=J1-29
+Added Pin To Net: NetName=I2C3_SCL Pin=J1-30
+Added Pin To Net: NetName=I2C3_SDA Pin=J1-31
+Added Pin To Net: NetName=GPIO7 Pin=J1-32
+Added Pin To Net: NetName=GPIO6 Pin=J1-33
+Added Pin To Net: NetName=GPIO5 Pin=J1-34
+Added Pin To Net: NetName=VDD33USB Pin=J1-35
+Added Pin To Net: NetName=GPIO15 Pin=J1-36
+Added Pin To Net: NetName=GPIO14 Pin=J1-37
+Added Pin To Net: NetName=SPI2_NSS Pin=J1-38
+Added Pin To Net: NetName=SPI2_SCK Pin=J1-39
+Added Pin To Net: NetName=SPI2_MOSI Pin=J1-40
+Added Pin To Net: NetName=SPI5_NSS Pin=J1-40
+Added Pin To Net: NetName=SPI2_MISO Pin=J1-41
+Added Pin To Net: NetName=SPI5_SCK Pin=J1-41
+Added Pin To Net: NetName=GND Pin=J1-42
+Added Pin To Net: NetName=SPI5_MISO Pin=J1-42
+Added Pin To Net: NetName=GND Pin=J1-43
+Added Pin To Net: NetName=SPI5_MOSI Pin=J1-43
+Added Pin To Net: NetName=GND Pin=J1-44
+Added Pin To Net: NetName=GND Pin=J1-45
+Added Pin To Net: NetName=GND Pin=J1-46
+Added Pin To Net: NetName=GND Pin=J1-47
+Added Pin To Net: NetName=GND Pin=J1-48
+Added Pin To Net: NetName=VDDA Pin=J1-49
+Added Pin To Net: NetName=VREF+ Pin=J1-50
+Added Pin To Net: NetName=VCC Pin=J1-51
+Added Pin To Net: NetName=GND Pin=J1-52
+Added Pin To Net: NetName=GND Pin=J1-53
+Added Pin To Net: NetName=VCC Pin=J1-54
+Added Pin To Net: NetName=MCU_R\S\T\ Pin=J1-55
+Added Pin To Net: NetName=ETH_MII_TX_ER/I\N\T\ Pin=J1-56
+Added Pin To Net: NetName=ETH_MDC Pin=J1-57
+Added Pin To Net: NetName=ETH_MDIO Pin=J1-58
+Added Pin To Net: NetName=ETH_MII_CRS Pin=J1-59
+Added Pin To Net: NetName=ETH_MII_COL Pin=J1-60
+Added Pin To Net: NetName=ETH_R\E\S\E\T\ Pin=J1-61
+Added Pin To Net: NetName=GND Pin=J1-62
+Added Pin To Net: NetName=ETH_MII_RX_CLK Pin=J1-63
+Added Pin To Net: NetName=ETH_MII_RX_DV Pin=J1-64
+Added Pin To Net: NetName=ETH_MII_RXD0 Pin=J1-65
+Added Pin To Net: NetName=ETH_MII_RXD1 Pin=J1-66
+Added Pin To Net: NetName=ETH_MII_RXD2 Pin=J1-67
+Added Pin To Net: NetName=ETH_MII_RXD3 Pin=J1-68
+Added Pin To Net: NetName=ETH_MII_ RX_ER Pin=J1-69
+Added Pin To Net: NetName=GND Pin=J1-70
+Added Pin To Net: NetName=ETH_MII_TX_CLK Pin=J1-71
+Added Pin To Net: NetName=ETH_MII_TX_EN Pin=J1-72
+Added Pin To Net: NetName=ETH_MII_TXD0 Pin=J1-73
+Added Pin To Net: NetName=ETH_MII_TXD1 Pin=J1-74
+Added Pin To Net: NetName=ETH_MII_TXD2 Pin=J1-75
+Added Pin To Net: NetName=ETH_MII_TXD3 Pin=J1-76
+Added Pin To Net: NetName=GND Pin=J1-77
+Added Pin To Net: NetName=GPIO2 Pin=J1-78
+Added Pin To Net: NetName=GPIO8 Pin=J1-79
+Added Pin To Net: NetName=GPIO13 Pin=J1-80
+Added Pin To Net: NetName=GPIO12 Pin=J1-81
+Added Pin To Net: NetName=GPIO11 Pin=J1-82
+Added Member To Class: ClassName=Top Member=Component J1 Ext-I/Os

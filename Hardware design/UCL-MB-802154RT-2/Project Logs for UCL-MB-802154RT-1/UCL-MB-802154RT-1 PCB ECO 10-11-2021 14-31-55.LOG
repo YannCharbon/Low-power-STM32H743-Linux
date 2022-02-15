@@ -1,0 +1,64 @@
+Removed Pin From Net: NetName=USART2_ TX Pin=U8-4
+Removed Pin From Net: NetName=USART2_ RX Pin=U8-23
+Added Component: Designator=R77(Resistor-0603)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "311-10.0KHRCT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10K"; VariantName = "[No Variations]"
+Added Component: Designator=R78(Resistor-0603)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603ZT0R00CT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0R"; VariantName = "[No Variations]"
+Added Component: Designator=R79(Resistor-0603)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "20K"; VariantName = "[No Variations]"
+Added Component: Designator=R80(Resistor-0603)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603ZT0R00CT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0R"; VariantName = "[No Variations]"
+Added Component: Designator=U9(SN74LVC2G17DBVR)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "296-SN74LVC2G17DBVRDKR-ND"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=USART2_ RX Pin=R77-2
+Added Pin To Net: NetName=USART2_ TX Pin=R78-2
+Added Pin To Net: NetName=GND Pin=R79-1
+Added Pin To Net: NetName=USART2_ RX Pin=R79-2
+Added Pin To Net: NetName=GND Pin=U9-2
+Added Pin To Net: NetName=USART2_ TX Pin=U9-3
+Added Pin To Net: NetName=3V3 Pin=U9-5
+Added Pin To Net: NetName=NetJ7_14 Pin=J7-14
+Added Net: Name=NetJ7_14
+Added Pin To Net: NetName=NetJ7_15 Pin=J7-15
+Added Net: Name=NetJ7_15
+Added Pin To Net: NetName=NetR77_1 Pin=R77-1
+Added Pin To Net: NetName=NetR77_1 Pin=U9-6
+Added Net: Name=NetR77_1
+Added Pin To Net: NetName=NetR78_1 Pin=R78-1
+Added Pin To Net: NetName=NetR78_1 Pin=U8-23
+Added Pin To Net: NetName=NetR78_1 Pin=U9-4
+Added Net: Name=NetR78_1
+Added Pin To Net: NetName=NetR80_1 Pin=R80-1
+Added Pin To Net: NetName=NetR80_1 Pin=U8-21
+Added Net: Name=NetR80_1
+Added Pin To Net: NetName=NetR80_2 Pin=R80-2
+Added Pin To Net: NetName=NetR80_2 Pin=U8-24
+Added Net: Name=NetR80_2
+Added Pin To Net: NetName=NetU8_4 Pin=U8-4
+Added Pin To Net: NetName=NetU8_4 Pin=U9-1
+Added Net: Name=NetU8_4
+Added Member To Class: ClassName=U_USB Member=Component R77 R-10K-0603
+Added Member To Class: ClassName=U_USB Member=Component R78 R-0R-0603
+Added Member To Class: ClassName=U_USB Member=Component R79 R-20K-0603
+Added Member To Class: ClassName=U_USB Member=Component R80 R-0R-0603
+Added Member To Class: ClassName=U_USB Member=Component U9 SN74LVC2G17DBVR
+Added Rule: Name=Schematic Differential Pairs Routing_4
+Added Rule: Name=Schematic Differential Pairs Routing_5
+Added Rule: Name=Schematic Differential Pairs Routing_7
+Added Rule: Name=Schematic Differential Pairs Routing_8
+Added Rule: Name=Schematic Differential Pairs Routing_9
+Added Rule: Name=Schematic Matched Net Lengths_4
+Added Rule: Name=Schematic Matched Net Lengths_5
+Added Rule: Name=Schematic Matched Net Lengths_6

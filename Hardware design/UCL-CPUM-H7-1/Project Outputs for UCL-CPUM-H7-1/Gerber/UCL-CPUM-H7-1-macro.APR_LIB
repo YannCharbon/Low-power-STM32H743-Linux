@@ -1,0 +1,4 @@
+G04:AMPARAMS|DCode=24|XSize=0.6mm|YSize=0.9mm|CornerRadius=0mm|HoleSize=0mm|Usage=FLASHONLY|Rotation=45.000|XOffset=0mm|YOffset=0mm|HoleType=Round|Shape=Rectangle|*
+%AMROTATEDRECTD24*
+4,1,4,0.1061,-0.5303,-0.5303,0.1061,-0.1061,0.5303,0.5303,-0.1061,0.1061,-0.5303,0.0*
+%

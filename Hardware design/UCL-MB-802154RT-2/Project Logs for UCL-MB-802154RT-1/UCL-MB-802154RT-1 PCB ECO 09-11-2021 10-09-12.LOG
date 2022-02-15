@@ -1,0 +1,17 @@
+Added Component: Designator=R76(SM/R_0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fabricant_Ref"; Value = "ERJ-2GE0R00X"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Puissance"; Value = "100 mW"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1b"; Value = "DigiReel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 2"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "P0.0JCT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1b"; Value = "P0.0JDKR-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 2"; Value = "667-ERJ-2GE0R00X"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tension"; Value = "50V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "1%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetC28_1 Pin=R76-1
+Added Pin To Net: NetName=GND Pin=R76-2
+Added Member To Class: ClassName=U_IEEE-802 Member=Component R76 R-0-0402

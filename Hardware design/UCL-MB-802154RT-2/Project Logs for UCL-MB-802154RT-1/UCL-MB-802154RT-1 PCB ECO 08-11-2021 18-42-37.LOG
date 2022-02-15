@@ -1,0 +1,22 @@
+Added Component: Designator=U8(CY7C64225-28PVXC)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "428-3158-ND"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=U8-1
+Added Pin To Net: NetName=NetR74_1 Pin=U8-2
+Added Pin To Net: NetName=USART2_ TX Pin=U8-4
+Added Pin To Net: NetName=NetU8_5 Pin=U8-5
+Added Pin To Net: NetName=NetR69_2 Pin=U8-7
+Added Pin To Net: NetName=NetU8_5 Pin=U8-8
+Added Pin To Net: NetName=GND Pin=U8-13
+Added Pin To Net: NetName=NetR73_2 Pin=U8-14
+Added Pin To Net: NetName=NetR71_2 Pin=U8-15
+Added Pin To Net: NetName=3V3 Pin=U8-16
+Added Pin To Net: NetName=USART2_ CTS Pin=U8-21
+Added Pin To Net: NetName=GND Pin=U8-22
+Added Pin To Net: NetName=USART2_ RX Pin=U8-23
+Added Pin To Net: NetName=USART2_ RTS Pin=U8-24
+Added Pin To Net: NetName=NetR72_1 Pin=U8-26
+Added Pin To Net: NetName=NetR70_1 Pin=U8-27
+Added Pin To Net: NetName=3V3 Pin=U8-28
+Added Member To Class: ClassName=U_USB Member=Component U8 CY7C64225-28PVXC

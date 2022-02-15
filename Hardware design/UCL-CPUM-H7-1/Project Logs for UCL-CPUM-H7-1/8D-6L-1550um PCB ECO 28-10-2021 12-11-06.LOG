@@ -1,0 +1,24 @@
+Added Pin To Net: NetName=GND Pin=C4-1
+Added Pin To Net: NetName=GND Pin=C5-1
+Added Pin To Net: NetName=GND Pin=C6-1
+Added Pin To Net: NetName=GND Pin=C9-1
+Added Pin To Net: NetName=GND Pin=C10-1
+Added Pin To Net: NetName=GND Pin=C11-1
+Added Pin To Net: NetName=GND Pin=C12-1
+Added Pin To Net: NetName=GND Pin=C13-1
+Added Pin To Net: NetName=GND Pin=C14-1
+Added Pin To Net: NetName=GND Pin=C15-1
+Added Pin To Net: NetName=GND Pin=C16-1
+Added Pin To Net: NetName=VCC Pin=U2-17
+Added Pin To Net: NetName=VCC Pin=U2-30
+Added Pin To Net: NetName=VCC Pin=U2-39
+Added Pin To Net: NetName=VCC Pin=U2-52
+Added Pin To Net: NetName=VCC Pin=U2-62
+Added Pin To Net: NetName=VCC Pin=U2-72
+Added Pin To Net: NetName=VCC Pin=U2-84
+Added Pin To Net: NetName=VCC Pin=U2-108
+Added Pin To Net: NetName=VCC Pin=U2-121
+Added Pin To Net: NetName=VCC Pin=U2-131
+Added Pin To Net: NetName=VCC Pin=U2-144
+Added Room: Name=U_MCU
+Added Room: Name=U_SDRAM

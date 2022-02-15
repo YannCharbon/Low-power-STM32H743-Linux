@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=AT86_CPS Pin=U4-1
+Added Pin To Net: NetName=AT86_CPS Pin=U4-11
+Change Net Name : Old Net Name=AT86_CPS New Net Name=AT86_CSD
+Change Net Name : Old Net Name=NetR38_2 New Net Name=CTX
+Added Pin To Net: NetName=CPS Pin=R39-2
+Added Pin To Net: NetName=CPS Pin=U4-1
+Added Net: Name=CPS
+Added Rule: Name=Schematic Differential Pairs Routing_4
+Added Rule: Name=Schematic Differential Pairs Routing_5
+Added Rule: Name=Schematic Differential Pairs Routing_7
+Added Rule: Name=Schematic Differential Pairs Routing_8
+Added Rule: Name=Schematic Differential Pairs Routing_9
+Added Rule: Name=Schematic Matched Net Lengths_4
+Added Rule: Name=Schematic Matched Net Lengths_5
+Added Rule: Name=Schematic Matched Net Lengths_6

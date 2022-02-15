@@ -1,0 +1,60 @@
+Added Component: Designator=U3(W947D6HBHX5E)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "W947D6HBHX5E-ND"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=U3-A1
+Added Pin To Net: NetName=SDRAM_D15 Pin=U3-A2
+Added Pin To Net: NetName=GND Pin=U3-A3
+Added Pin To Net: NetName=VCC Pin=U3-A7
+Added Pin To Net: NetName=SDRAM_D0 Pin=U3-A8
+Added Pin To Net: NetName=VCC Pin=U3-A9
+Added Pin To Net: NetName=VCC Pin=U3-B1
+Added Pin To Net: NetName=SDRAM_D13 Pin=U3-B2
+Added Pin To Net: NetName=SDRAM_D14 Pin=U3-B3
+Added Pin To Net: NetName=SDRAM_D1 Pin=U3-B7
+Added Pin To Net: NetName=SDRAM_D2 Pin=U3-B8
+Added Pin To Net: NetName=GND Pin=U3-B9
+Added Pin To Net: NetName=GND Pin=U3-C1
+Added Pin To Net: NetName=SDRAM_D11 Pin=U3-C2
+Added Pin To Net: NetName=SDRAM_D12 Pin=U3-C3
+Added Pin To Net: NetName=SDRAM_D3 Pin=U3-C7
+Added Pin To Net: NetName=SDRAM_D4 Pin=U3-C8
+Added Pin To Net: NetName=VCC Pin=U3-C9
+Added Pin To Net: NetName=VCC Pin=U3-D1
+Added Pin To Net: NetName=SDRAM_D9 Pin=U3-D2
+Added Pin To Net: NetName=SDRAM_D10 Pin=U3-D3
+Added Pin To Net: NetName=SDRAM_D5 Pin=U3-D7
+Added Pin To Net: NetName=SDRAM_D6 Pin=U3-D8
+Added Pin To Net: NetName=GND Pin=U3-D9
+Added Pin To Net: NetName=GND Pin=U3-E1
+Added Pin To Net: NetName=SDRAM_D8 Pin=U3-E3
+Added Pin To Net: NetName=SDRAM_D7 Pin=U3-E7
+Added Pin To Net: NetName=VCC Pin=U3-E9
+Added Pin To Net: NetName=GND Pin=U3-F1
+Added Pin To Net: NetName=SDRAM_NBL1 Pin=U3-F2
+Added Pin To Net: NetName=SDRAM_NBL0 Pin=U3-F8
+Added Pin To Net: NetName=VCC Pin=U3-F9
+Added Pin To Net: NetName=SDRAM_SDCKE1 Pin=U3-G1
+Added Pin To Net: NetName=SDRAM_CK_P Pin=U3-G2
+Added Pin To Net: NetName=SDRAM_CK_N Pin=U3-G3
+Added Pin To Net: NetName=SDRAM_SDNWE Pin=U3-G7
+Added Pin To Net: NetName=SDRAM_SDNCAS Pin=U3-G8
+Added Pin To Net: NetName=SDRAM_SDNRAS Pin=U3-G9
+Added Pin To Net: NetName=SDRAM_A9 Pin=U3-H1
+Added Pin To Net: NetName=SDRAM_A11 Pin=U3-H2
+Added Pin To Net: NetName=SDRAM_SDNE1 Pin=U3-H7
+Added Pin To Net: NetName=SDRAM_BA0 Pin=U3-H8
+Added Pin To Net: NetName=SDRAM_BA1 Pin=U3-H9
+Added Pin To Net: NetName=SDRAM_A6 Pin=U3-J1
+Added Pin To Net: NetName=SDRAM_A7 Pin=U3-J2
+Added Pin To Net: NetName=SDRAM_A8 Pin=U3-J3
+Added Pin To Net: NetName=SDRAM_A10 Pin=U3-J7
+Added Pin To Net: NetName=SDRAM_A0 Pin=U3-J8
+Added Pin To Net: NetName=SDRAM_A1 Pin=U3-J9
+Added Pin To Net: NetName=GND Pin=U3-K1
+Added Pin To Net: NetName=SDRAM_A4 Pin=U3-K2
+Added Pin To Net: NetName=SDRAM_A5 Pin=U3-K3
+Added Pin To Net: NetName=SDRAM_A2 Pin=U3-K7
+Added Pin To Net: NetName=SDRAM_A3 Pin=U3-K8
+Added Pin To Net: NetName=VCC Pin=U3-K9
+Added Member To Class: ClassName=U_SDRAM Member=Component U3 W947D6HBHX5E

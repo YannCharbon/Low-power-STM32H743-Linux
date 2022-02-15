@@ -1,0 +1,314 @@
+Change Component Footprint: Designator=L1 Old Footprint=SM/L_0402 New Footprint=Inductor-0603
+Change component parameters: Designator = "L1"; Footprint = "Inductor-0603"; UniqueID = "\ZSMBABFE\NGJEXIHW"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "553-2387-1-ND"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R46"; Footprint = "Resistor-0603"; UniqueID = "\JFQAAWSK\PGLBKRKJ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "408-1735-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "2K55 0.5%"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Y2"; Footprint = "TCXO"; UniqueID = "\DSMOQAXP\GLHYBCRV"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Case/Package"; Value = "SMD/SMT"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "http://www.taitien.com/wp-content/uploads/2015/12/XO-0076_TX.pdf?src-supplier=Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.taitien.com/wp-content/uploads/2015/12/XO-0076_TX.pdf?src-supplier=Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Frequency"; Value = "26MHz"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Frequency Stability"; Value = "1ppm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.039inch"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Length"; Value = "0.126inch"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Max Operating Temperature"; Value = "85°C"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Max Supply Current"; Value = "2mA"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Min Operating Temperature"; Value = "-40°C"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mount"; Value = "Surface Mount"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Packaging"; Value = "Tape and Reel"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "RoHS"; Value = "Yes"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "887-1620-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Width"; Value = "0.098inch"; VariantName = "[No Variations]"
+Added Component: Designator=D1(150080YS75000)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "732-4987-1-ND"; VariantName = "[No Variations]"
+Added Component: Designator=D2(150080YS75000)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "732-4987-1-ND"; VariantName = "[No Variations]"
+Added Component: Designator=D3(150080YS75000)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "732-4987-1-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J1(ARJE-0034)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "535-12443-1-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J4(Header_2x6)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "2057-PH2-12-UA-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J5(Header_2x2)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "2057-PH2-04-UA-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J6(Header_1x2)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "A19423-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J8(I2C_header)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "SAM1222-02-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J9(SMA_733910080)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "WM4088-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J10(SPI_Header)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "SAM1213-04-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J11(SMA_733910080)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "WM4088-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J12(SPI_Header)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "SAM1213-04-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J13(UART_Header)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "SAM1213-05-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J14(JTAG_Header)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "2057-PH2-20-UA-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J15(GPIO_Header)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "S7018-ND"; VariantName = "[No Variations]"
+Added Component: Designator=J16(USB3085-30-A)
+Add component. Clean all parameters for all variants
+Added Component: Designator=M1(Screw_M3)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "732-13703-ND"; VariantName = "[No Variations]"
+Added Component: Designator=M2(Screw_M3)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "732-13703-ND"; VariantName = "[No Variations]"
+Added Component: Designator=M7(Screw_M3)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "732-13703-ND"; VariantName = "[No Variations]"
+Added Component: Designator=M8(Screw_M3)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "732-13703-ND"; VariantName = "[No Variations]"
+Added Component: Designator=U1(LAN8187-JT)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "LAN8187-JT-ND"; VariantName = "[No Variations]"
+Added Component: Designator=U6(AZ1117IH-3.3TRG1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "AZ1117IH-3.3TRG1DICT-ND"; VariantName = "[No Variations]"
+Added Component: Designator=U8(CY7C64225-28PVXC)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "428-3158-ND"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetD1_1 Pin=D1-1
+Added Pin To Net: NetName=3V3 Pin=D1-2
+Added Pin To Net: NetName=NetD2_1 Pin=D2-1
+Added Pin To Net: NetName=3V3 Pin=D2-2
+Added Pin To Net: NetName=NetD3_1 Pin=D3-1
+Added Pin To Net: NetName=3V3 Pin=D3-2
+Added Pin To Net: NetName=NetJ1_1 Pin=J1-1
+Added Pin To Net: NetName=NetJ1_2 Pin=J1-2
+Added Pin To Net: NetName=TX_P Pin=J1-3
+Added Pin To Net: NetName=TX_N Pin=J1-4
+Added Pin To Net: NetName=NetC6_2 Pin=J1-5
+Added Pin To Net: NetName=NetJ1_6 Pin=J1-6
+Added Pin To Net: NetName=RX_P Pin=J1-7
+Added Pin To Net: NetName=RX_P Pin=J1-7
+Added Pin To Net: NetName=RX_P Pin=J1-7
+Added Pin To Net: NetName=RX_N Pin=J1-8
+Added Pin To Net: NetName=GND Pin=J1-10
+Added Pin To Net: NetName=NetJ1_11 Pin=J1-11
+Added Pin To Net: NetName=NetJ1_12 Pin=J1-12
+Added Pin To Net: NetName=+2V Pin=J4-1
+Added Pin To Net: NetName=+2V_MCU Pin=J4-2
+Added Pin To Net: NetName=+2V Pin=J4-3
+Added Pin To Net: NetName=+2V_ETH Pin=J4-4
+Added Pin To Net: NetName=+2V Pin=J4-5
+Added Pin To Net: NetName=+2V_AT86 Pin=J4-6
+Added Pin To Net: NetName=3V3 Pin=J4-7
+Added Pin To Net: NetName=3V3_ETH Pin=J4-8
+Added Pin To Net: NetName=3V3 Pin=J4-9
+Added Pin To Net: NetName=3V3_AT86 Pin=J4-10
+Added Pin To Net: NetName=+5V_USB Pin=J5-1
+Added Pin To Net: NetName=+5V Pin=J5-2
+Added Pin To Net: NetName=+5V_EXT Pin=J5-3
+Added Pin To Net: NetName=+5V Pin=J5-4
+Added Pin To Net: NetName=+5V_EXT Pin=J6-1
+Added Pin To Net: NetName=GND Pin=J6-2
+Added Pin To Net: NetName=NetJ7_30 Pin=J8-1
+Added Pin To Net: NetName=NetJ7_31 Pin=J8-2
+Added Pin To Net: NetName=NetJ9_1 Pin=J9-1
+Added Pin To Net: NetName=GND Pin=J9-2
+Added Pin To Net: NetName=GND Pin=J9-2
+Added Pin To Net: NetName=GND Pin=J9-2
+Added Pin To Net: NetName=GND Pin=J9-2
+Added Pin To Net: NetName=NetJ7_18 Pin=J10-1
+Added Pin To Net: NetName=NetJ7_21 Pin=J10-2
+Added Pin To Net: NetName=NetJ7_20 Pin=J10-3
+Added Pin To Net: NetName=NetJ7_19 Pin=J10-4
+Added Pin To Net: NetName=NetJ11_1 Pin=J11-1
+Added Pin To Net: NetName=GND Pin=J11-2
+Added Pin To Net: NetName=GND Pin=J11-2
+Added Pin To Net: NetName=GND Pin=J11-2
+Added Pin To Net: NetName=GND Pin=J11-2
+Added Pin To Net: NetName=NetJ12_1 Pin=J12-1
+Added Pin To Net: NetName=NetJ12_2 Pin=J12-2
+Added Pin To Net: NetName=NetJ12_3 Pin=J12-3
+Added Pin To Net: NetName=NetJ12_4 Pin=J12-4
+Added Pin To Net: NetName=NetJ7_7 Pin=J13-1
+Added Pin To Net: NetName=NetJ7_8 Pin=J13-2
+Added Pin To Net: NetName=NetJ7_4 Pin=J13-3
+Added Pin To Net: NetName=NetJ7_6 Pin=J13-4
+Added Pin To Net: NetName=NetJ7_5 Pin=J13-5
+Added Pin To Net: NetName=VCC_JTAG Pin=J14-1
+Added Pin To Net: NetName=VCC_JTAG Pin=J14-2
+Added Pin To Net: NetName=NetJ7_26 Pin=J14-3
+Added Pin To Net: NetName=GND Pin=J14-4
+Added Pin To Net: NetName=NetJ7_23 Pin=J14-5
+Added Pin To Net: NetName=GND Pin=J14-6
+Added Pin To Net: NetName=NetJ7_27 Pin=J14-7
+Added Pin To Net: NetName=GND Pin=J14-8
+Added Pin To Net: NetName=NetJ7_24 Pin=J14-9
+Added Pin To Net: NetName=GND Pin=J14-10
+Added Pin To Net: NetName=NetJ14_11 Pin=J14-11
+Added Pin To Net: NetName=GND Pin=J14-12
+Added Pin To Net: NetName=NetJ7_25 Pin=J14-13
+Added Pin To Net: NetName=GND Pin=J14-14
+Added Pin To Net: NetName=NRST Pin=J14-15
+Added Pin To Net: NetName=GND Pin=J14-16
+Added Pin To Net: NetName=NetJ14_17 Pin=J14-17
+Added Pin To Net: NetName=GND Pin=J14-18
+Added Pin To Net: NetName=NetJ14_19 Pin=J14-19
+Added Pin To Net: NetName=GND Pin=J14-20
+Added Pin To Net: NetName=GPIO1 Pin=J15-1
+Added Pin To Net: NetName=GPIO2 Pin=J15-2
+Added Pin To Net: NetName=GPIO3 Pin=J15-3
+Added Pin To Net: NetName=GPIO4 Pin=J15-4
+Added Pin To Net: NetName=GPIO7 Pin=J15-5
+Added Pin To Net: NetName=GPIO8 Pin=J15-6
+Added Pin To Net: NetName=GPIO9 Pin=J15-7
+Added Pin To Net: NetName=GPIO10 Pin=J15-8
+Added Pin To Net: NetName=GPIO11 Pin=J15-9
+Added Pin To Net: NetName=GPIO12 Pin=J15-10
+Added Pin To Net: NetName=GPIO13 Pin=J15-11
+Added Pin To Net: NetName=GPIO16 Pin=J15-12
+Added Pin To Net: NetName=GPIO17 Pin=J15-13
+Added Pin To Net: NetName=+2V Pin=J15-14
+Added Pin To Net: NetName=+2V Pin=J15-15
+Added Pin To Net: NetName=3V3 Pin=J15-16
+Added Pin To Net: NetName=+5V Pin=J15-17
+Added Pin To Net: NetName=GND Pin=J15-18
+Added Pin To Net: NetName=GND Pin=J15-19
+Added Pin To Net: NetName=GND Pin=J15-20
+Added Pin To Net: NetName=+5V_USB Pin=J16-1
+Added Pin To Net: NetName=NetJ16_2 Pin=J16-2
+Added Pin To Net: NetName=NetJ16_3 Pin=J16-3
+Added Pin To Net: NetName=GND Pin=J16-5
+Added Pin To Net: NetName=NetR6_1 Pin=U1-1
+Added Pin To Net: NetName=NetR7_2 Pin=U1-2
+Added Pin To Net: NetName=NetR30_1 Pin=U1-4
+Added Pin To Net: NetName=NetR31_1 Pin=U1-5
+Added Pin To Net: NetName=NetR32_1 Pin=U1-6
+Added Pin To Net: NetName=GND Pin=U1-7
+Added Pin To Net: NetName=GND Pin=U1-9
+Added Pin To Net: NetName=GND Pin=U1-10
+Added Pin To Net: NetName=3V3_ETH Pin=U1-13
+Added Pin To Net: NetName=NetC9_2 Pin=U1-14
+Added Pin To Net: NetName=GND Pin=U1-15
+Added Pin To Net: NetName=NetR11_1 Pin=U1-16
+Added Pin To Net: NetName=NetJ1_12 Pin=U1-17
+Added Pin To Net: NetName=NetJ1_1 Pin=U1-19
+Added Pin To Net: NetName=NetR13_1 Pin=U1-20
+Added Pin To Net: NetName=NetC14_2 Pin=U1-22
+Added Pin To Net: NetName=NetC15_2 Pin=U1-23
+Added Pin To Net: NetName=GND Pin=U1-24
+Added Pin To Net: NetName=ETH_R\E\S\E\T\ Pin=U1-25
+Added Pin To Net: NetName=ETH_MDIO Pin=U1-26
+Added Pin To Net: NetName=ETH_MDC Pin=U1-27
+Added Pin To Net: NetName=GND Pin=U1-28
+Added Pin To Net: NetName=NetR14_2 Pin=U1-29
+Added Pin To Net: NetName=NetR15_2 Pin=U1-30
+Added Pin To Net: NetName=NetR16_2 Pin=U1-31
+Added Pin To Net: NetName=NetR17_2 Pin=U1-32
+Added Pin To Net: NetName=NetR18_2 Pin=U1-33
+Added Pin To Net: NetName=NetR12_2 Pin=U1-34
+Added Pin To Net: NetName=NetR19_2 Pin=U1-35
+Added Pin To Net: NetName=NetR9_1 Pin=U1-36
+Added Pin To Net: NetName=NetR10_1 Pin=U1-37
+Added Pin To Net: NetName=NetR25_2 Pin=U1-38
+Added Pin To Net: NetName=ETH_MII_TX_EN Pin=U1-39
+Added Pin To Net: NetName=GND Pin=U1-40
+Added Pin To Net: NetName=ETH_MII_TXD0 Pin=U1-41
+Added Pin To Net: NetName=ETH_MII_TXD1 Pin=U1-42
+Added Pin To Net: NetName=+2V_ETH Pin=U1-43
+Added Pin To Net: NetName=ETH_MII_TXD2 Pin=U1-44
+Added Pin To Net: NetName=ETH_MII_TXD3 Pin=U1-45
+Added Pin To Net: NetName=ETH_MII_TX_ER/I\N\T\ Pin=U1-46
+Added Pin To Net: NetName=NetR33_2 Pin=U1-47
+Added Pin To Net: NetName=NetR29_2 Pin=U1-48
+Added Pin To Net: NetName=GND Pin=U1-49
+Added Pin To Net: NetName=TX_N Pin=U1-50
+Added Pin To Net: NetName=TX_P Pin=U1-51
+Added Pin To Net: NetName=GND Pin=U1-52
+Added Pin To Net: NetName=VDD_ETH Pin=U1-53
+Added Pin To Net: NetName=RX_N Pin=U1-54
+Added Pin To Net: NetName=RX_P Pin=U1-55
+Added Pin To Net: NetName=VDD_ETH Pin=U1-57
+Added Pin To Net: NetName=GND Pin=U1-58
+Added Pin To Net: NetName=NetR37_2 Pin=U1-59
+Added Pin To Net: NetName=GND Pin=U1-60
+Added Pin To Net: NetName=VDD_ETH Pin=U1-61
+Added Pin To Net: NetName=GND Pin=U1-62
+Added Pin To Net: NetName=+2V Pin=U1-63
+Added Pin To Net: NetName=GND Pin=U6-1
+Added Pin To Net: NetName=3V3 Pin=U6-2
+Added Pin To Net: NetName=+5V Pin=U6-3
+Added Pin To Net: NetName=GND Pin=U8-1
+Added Pin To Net: NetName=NetR74_1 Pin=U8-2
+Added Pin To Net: NetName=USART2_ TX Pin=U8-4
+Added Pin To Net: NetName=NetU8_5 Pin=U8-5
+Added Pin To Net: NetName=NetR69_2 Pin=U8-7
+Added Pin To Net: NetName=NetU8_5 Pin=U8-8
+Added Pin To Net: NetName=GND Pin=U8-13
+Added Pin To Net: NetName=NetR73_2 Pin=U8-14
+Added Pin To Net: NetName=NetR71_2 Pin=U8-15
+Added Pin To Net: NetName=3V3 Pin=U8-16
+Added Member To Class: ClassName=U_USB Member=Component D1 150080YS75000
+Added Member To Class: ClassName=U_USB Member=Component D2 150080YS75000
+Added Member To Class: ClassName=U_USB Member=Component D3 150080YS75000
+Added Member To Class: ClassName=U_Ethernet Member=Component J1 ARJE-0034
+Added Member To Class: ClassName=U_Power Member=Component J4 Header_2x6
+Added Member To Class: ClassName=U_Power Member=Component J5 Header_2x2
+Added Member To Class: ClassName=U_Power Member=Component J6 Header_1x2
+Added Member To Class: ClassName=Top Member=Component J8 I2C_Header
+Added Member To Class: ClassName=Top Member=Component J9 733910080
+Added Member To Class: ClassName=Top Member=Component J10 SPI_Header
+Added Member To Class: ClassName=Top Member=Component J11 733910080
+Added Member To Class: ClassName=Top Member=Component J12 SPI_Header
+Added Member To Class: ClassName=Top Member=Component J13 UART_Header
+Added Member To Class: ClassName=Top Member=Component J14 Header_2x10
+Added Member To Class: ClassName=Top Member=Component J15 Header 1x20
+Added Member To Class: ClassName=U_USB Member=Component J16 USB3085-30-A
+Added Member To Class: ClassName=Top Member=Component M1 M3x5 (97790503111)
+Added Member To Class: ClassName=Top Member=Component M2 M3x5 (97790503111)
+Added Member To Class: ClassName=Top Member=Component M7 M3x5 (97790503111)
+Added Member To Class: ClassName=Top Member=Component M8 M3x5 (97790503111)
+Added Member To Class: ClassName=U_Ethernet Member=Component U1 LAN8187-JT
+Added Member To Class: ClassName=U_Power Member=Component U6 AZ1117IH-3.3TRG1
+Added Member To Class: ClassName=U_USB Member=Component U8 CY7C64225-28PVXC

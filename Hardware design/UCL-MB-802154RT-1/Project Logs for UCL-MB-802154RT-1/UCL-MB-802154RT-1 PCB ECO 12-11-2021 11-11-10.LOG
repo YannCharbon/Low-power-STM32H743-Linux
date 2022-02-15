@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=+2V Pin=J15-14
+Removed Pin From Net: NetName=3V3 Pin=J15-16
+Added Pin To Net: NetName=3V3 Pin=J15-14
+Added Pin To Net: NetName=+2V Pin=J15-16
+Change Room Name: Old Name=SKY66122-11 New Name=U_Power
+Change Room Scope: Old Scope=False New Scope=InComponentClass('U_Power')
+Added Rule: Name=Schematic Differential Pairs Routing_4
+Added Rule: Name=Schematic Differential Pairs Routing_5
+Added Rule: Name=Schematic Differential Pairs Routing_7
+Added Rule: Name=Schematic Differential Pairs Routing_8
+Added Rule: Name=Schematic Differential Pairs Routing_9
+Added Rule: Name=Schematic Matched Net Lengths_4
+Added Rule: Name=Schematic Matched Net Lengths_5
+Added Rule: Name=Schematic Matched Net Lengths_6

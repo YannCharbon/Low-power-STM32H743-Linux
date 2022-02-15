@@ -1,0 +1,11 @@
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [R 0ohm not fitted] of Project [UCL-MB-802154RT-1.PrjPcb]
+   Generated File[//d.docs.live.net/2ea85e8d1f048948/Documents/HES-SO/TM/Schematics/UCL-MB-802154RT-1/Project Outputs for UCL-MB-802154RT-1/BOM/Bill of Materials-UCL-MB-802154RT-1(R 0ohm not fitted).xls]
+   Generated File[Bill of Materials-UCL-MB-802154RT-1(R 0ohm not fitted).xls]
+
+
+Files Generated   : 2
+Documents Printed : 0
+
+Finished Output Generation At 12:20:59 On 17/11/2021

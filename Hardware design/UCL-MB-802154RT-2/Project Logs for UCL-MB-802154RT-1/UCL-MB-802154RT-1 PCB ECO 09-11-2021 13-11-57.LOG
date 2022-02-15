@@ -1,0 +1,14 @@
+Added Component: Designator=S1(TL3305AF260QG)
+Add component. Clean all parameters for all variants
+Added Component: Designator=S2(TL3305AF260QG)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=GND Pin=S1-1
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Pin To Net: NetName=U\S\R\_\B\T\N\ Pin=S1-3
+Added Pin To Net: NetName=U\S\R\_\B\T\N\ Pin=S1-4
+Added Pin To Net: NetName=GND Pin=S2-1
+Added Pin To Net: NetName=GND Pin=S2-2
+Added Pin To Net: NetName=NRST Pin=S2-3
+Added Pin To Net: NetName=NRST Pin=S2-4
+Added Member To Class: ClassName=Top Member=Component S1 TL3305AF260QG
+Added Member To Class: ClassName=Top Member=Component S2 TL3305AF260QG

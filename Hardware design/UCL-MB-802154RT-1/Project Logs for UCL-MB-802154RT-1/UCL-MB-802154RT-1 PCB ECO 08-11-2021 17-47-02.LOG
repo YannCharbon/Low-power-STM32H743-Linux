@@ -1,0 +1,8 @@
+Added Component: Designator=U7(AZ2185D-ADJTRG1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "AZ2185D-ADJTRG1DICT-ND"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetR46_1 Pin=U7-1
+Added Pin To Net: NetName=+2V Pin=U7-2
+Added Pin To Net: NetName=+5V Pin=U7-3
+Added Member To Class: ClassName=U_Power Member=Component U7 AZ2185D-ADJTRG1

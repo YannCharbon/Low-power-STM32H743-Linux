@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=GND Pin=J16-0
+Removed Pin From Net: NetName=GND Pin=J16-0
+Removed Pin From Net: NetName=GND Pin=J16-0
+Removed Pin From Net: NetName=GND Pin=J16-0
+Change Component Footprint: Designator=Y2 Old Footprint=TCXO New Footprint=7Z-26.000MBG-T

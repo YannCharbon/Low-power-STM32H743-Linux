@@ -1,0 +1,12 @@
+Change Component Comment : Designator=C14 Old Comment=C-12pF-0603 New Comment=C-16pF-0603
+Change Component Comment : Designator=C15 Old Comment=C-12pF-0603 New Comment=C-16pF-0603
+Change component parameters: Designator = "C14"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\PDDURGHU"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "1292-1490-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "16pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C15"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\FPKHIXVS"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "1292-1490-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "16pF"; VariantName = "[No Variations]"

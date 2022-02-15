@@ -1,0 +1,11 @@
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [R 0ohm not fitted] of Project [UCL-CPUM-H7-2.PrjPcb]
+   Generated File[//d.docs.live.net/2ea85e8d1f048948/Documents/HES-SO/TM/Schematics/UCL-CPUM-H7-2/Project Outputs for UCL-CPUM-H7-2/BOM/Bill of Materials-UCL-CPUM-H7-2(R 0ohm not fitted).xls]
+   Generated File[Bill of Materials-UCL-CPUM-H7-2(R 0ohm not fitted).xls]
+
+
+Files Generated   : 2
+Documents Printed : 0
+
+Finished Output Generation At 11:30:48 On 06/12/2021

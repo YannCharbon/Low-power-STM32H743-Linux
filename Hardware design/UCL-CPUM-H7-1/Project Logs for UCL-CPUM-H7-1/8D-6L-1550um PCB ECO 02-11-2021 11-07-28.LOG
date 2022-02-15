@@ -1,0 +1,5 @@
+Added Pin To Net: NetName=GND Pin=J1-17
+Added Pin To Net: NetName=SPI2_MOSI Pin=J1-40
+Added Pin To Net: NetName=SPI2_MISO Pin=J1-41
+Added Pin To Net: NetName=GND Pin=J1-42
+Added Pin To Net: NetName=GND Pin=J1-43

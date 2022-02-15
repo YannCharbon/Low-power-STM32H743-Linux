@@ -1,0 +1,4 @@
+Record=TopLevelDocument|FileName=Top.SchDoc
+Record=SheetSymbol|SourceDocument=Top.SchDoc|Designator=U_Flash|SchDesignator=U_Flash|FileName=Flash.SchDoc|SymbolType=Normal|RawFileName=Flash.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Top.SchDoc|Designator=U_MCU|SchDesignator=U_MCU|FileName=MCU.SchDoc|SymbolType=Normal|RawFileName=MCU.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Top.SchDoc|Designator=U_SDRAM|SchDesignator=U_SDRAM|FileName=SDRAM.SchDoc|SymbolType=Normal|RawFileName=SDRAM.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 

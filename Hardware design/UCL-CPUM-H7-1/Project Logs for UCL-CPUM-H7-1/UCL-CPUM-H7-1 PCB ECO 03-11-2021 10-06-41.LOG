@@ -1,0 +1,12 @@
+Change Component Comment : Designator=R56 Old Comment=R-310R-0603 New Comment=R-309R-0603
+Change Component Comment : Designator=R57 Old Comment=R-310R-0603 New Comment=R-309R-0603
+Change component parameters: Designator = "R56"; Footprint = "Resistor-0603"; UniqueID = "\GEJPTTZL\FPJEJKVG"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "311-309HRCT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "309R"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R57"; Footprint = "Resistor-0603"; UniqueID = "\GEJPTTZL\RUFUILSO"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "311-309HRCT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "309R"; VariantName = "[No Variations]"

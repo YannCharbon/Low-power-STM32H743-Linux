@@ -1,0 +1,22 @@
+Removed Pin From Net: NetName=ETH_R\E\S\E\T\ Pin=J7-61
+Added Component: Designator=R45(Resistor-0603)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603ZT0R00CT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0R"; VariantName = "[No Variations]"
+Added Component: Designator=R50(Resistor-0603)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603ZT0R00CT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0R"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+2V_MCU Pin=J14-1
+Added Pin To Net: NetName=+2V_MCU Pin=J14-2
+Added Pin To Net: NetName=3V3 Pin=J15-13
+Added Pin To Net: NetName=ETH_R\E\S\E\T\ Pin=R45-1
+Added Pin To Net: NetName=ETH_R\E\S\E\T\ Pin=R50-1
+Added Pin To Net: NetName=NRST Pin=R50-2
+Added Pin To Net: NetName=NetJ7_61 Pin=J7-61
+Added Pin To Net: NetName=NetJ7_61 Pin=R45-2
+Added Net: Name=NetJ7_61
+Added Member To Class: ClassName=Top Member=Component R45 R-0R-0603
+Added Member To Class: ClassName=Top Member=Component R50 R-0R-0603

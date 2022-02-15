@@ -1,0 +1,25 @@
+Added Component: Designator=J15(GPIO_Header)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "S7018-ND"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GPIO1 Pin=J15-1
+Added Pin To Net: NetName=GPIO2 Pin=J15-2
+Added Pin To Net: NetName=GPIO3 Pin=J15-3
+Added Pin To Net: NetName=GPIO4 Pin=J15-4
+Added Pin To Net: NetName=GPIO7 Pin=J15-5
+Added Pin To Net: NetName=GPIO8 Pin=J15-6
+Added Pin To Net: NetName=GPIO9 Pin=J15-7
+Added Pin To Net: NetName=GPIO10 Pin=J15-8
+Added Pin To Net: NetName=GPIO11 Pin=J15-9
+Added Pin To Net: NetName=GPIO12 Pin=J15-10
+Added Pin To Net: NetName=GPIO13 Pin=J15-11
+Added Pin To Net: NetName=GPIO16 Pin=J15-12
+Added Pin To Net: NetName=GPIO17 Pin=J15-13
+Added Pin To Net: NetName=+2V Pin=J15-14
+Added Pin To Net: NetName=+2V Pin=J15-15
+Added Pin To Net: NetName=3V3 Pin=J15-16
+Added Pin To Net: NetName=+5V Pin=J15-17
+Added Pin To Net: NetName=GND Pin=J15-18
+Added Pin To Net: NetName=GND Pin=J15-19
+Added Pin To Net: NetName=GND Pin=J15-20
+Added Member To Class: ClassName=Top Member=Component J15 Header 1x20

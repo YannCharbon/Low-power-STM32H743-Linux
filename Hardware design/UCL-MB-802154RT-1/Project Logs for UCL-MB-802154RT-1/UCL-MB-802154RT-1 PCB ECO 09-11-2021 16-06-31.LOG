@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=+2V Pin=U1-63
+Added Pin To Net: NetName=+2V_ETH Pin=U1-63

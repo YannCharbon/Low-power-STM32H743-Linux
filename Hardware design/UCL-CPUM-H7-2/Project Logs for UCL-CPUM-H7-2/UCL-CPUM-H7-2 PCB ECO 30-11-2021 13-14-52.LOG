@@ -1,0 +1,127 @@
+Removed Pin From Net: NetName=GND Pin=C19-1
+Removed Pin From Net: NetName=VCC Pin=C19-2
+Removed Pin From Net: NetName=GND Pin=C26-1
+Removed Pin From Net: NetName=VCC Pin=R56-2
+Removed Pin From Net: NetName=VCC Pin=R57-2
+Removed Pin From Net: NetName=FMC_ SDCLK Pin=R58-2
+Removed Pin From Net: NetName=VCC Pin=R59-1
+Removed Pin From Net: NetName=GND Pin=R60-2
+Removed Pin From Net: NetName=VCC Pin=R61-2
+Removed Pin From Net: NetName=GND Pin=T2-2
+Removed Pin From Net: NetName=GND Pin=T2-5
+Removed Pin From Net: NetName=GND Pin=T3-2
+Removed Pin From Net: NetName=GND Pin=T3-5
+Removed Pin From Net: NetName=VCC Pin=U3-B1
+Removed Pin From Net: NetName=SDRAM_D14 Pin=U3-B3
+Removed Pin From Net: NetName=SDRAM_D1 Pin=U3-B7
+Removed Pin From Net: NetName=GND Pin=U3-B9
+Removed Pin From Net: NetName=GND Pin=U3-C1
+Removed Pin From Net: NetName=SDRAM_D12 Pin=U3-C3
+Removed Pin From Net: NetName=SDRAM_D3 Pin=U3-C7
+Removed Pin From Net: NetName=VCC Pin=U3-C9
+Removed Pin From Net: NetName=VCC Pin=U3-D1
+Removed Pin From Net: NetName=SDRAM_D10 Pin=U3-D3
+Removed Pin From Net: NetName=SDRAM_D5 Pin=U3-D7
+Removed Pin From Net: NetName=GND Pin=U3-D9
+Removed Pin From Net: NetName=GND Pin=U3-E1
+Removed Pin From Net: NetName=SDRAM_D8 Pin=U3-E3
+Removed Pin From Net: NetName=SDRAM_D7 Pin=U3-E7
+Removed Pin From Net: NetName=VCC Pin=U3-E9
+Removed Pin From Net: NetName=GND Pin=U3-F1
+Removed Pin From Net: NetName=SDRAM_NBL1 Pin=U3-F2
+Removed Pin From Net: NetName=SDRAM_NBL0 Pin=U3-F8
+Removed Pin From Net: NetName=VCC Pin=U3-F9
+Removed Pin From Net: NetName=SDRAM_SDCKE1 Pin=U3-G1
+Removed Pin From Net: NetName=SDRAM_SDNWE Pin=U3-G7
+Removed Pin From Net: NetName=SDRAM_SDNCAS Pin=U3-G8
+Removed Pin From Net: NetName=SDRAM_SDNRAS Pin=U3-G9
+Removed Pin From Net: NetName=SDRAM_A9 Pin=U3-H1
+Removed Pin From Net: NetName=SDRAM_A11 Pin=U3-H2
+Removed Pin From Net: NetName=SDRAM_SDNE1 Pin=U3-H7
+Removed Pin From Net: NetName=SDRAM_BA0 Pin=U3-H8
+Removed Pin From Net: NetName=SDRAM_BA1 Pin=U3-H9
+Removed Pin From Net: NetName=SDRAM_A6 Pin=U3-J1
+Removed Pin From Net: NetName=SDRAM_A7 Pin=U3-J2
+Removed Pin From Net: NetName=SDRAM_A8 Pin=U3-J3
+Removed Pin From Net: NetName=SDRAM_A10 Pin=U3-J7
+Removed Pin From Net: NetName=SDRAM_A0 Pin=U3-J8
+Removed Pin From Net: NetName=SDRAM_A1 Pin=U3-J9
+Removed Pin From Net: NetName=GND Pin=U3-K1
+Removed Pin From Net: NetName=SDRAM_A4 Pin=U3-K2
+Removed Pin From Net: NetName=SDRAM_A5 Pin=U3-K3
+Removed Pin From Net: NetName=SDRAM_A2 Pin=U3-K7
+Removed Pin From Net: NetName=SDRAM_A3 Pin=U3-K8
+Removed Pin From Net: NetName=VCC Pin=U3-K9
+Removed Member From Class: ClassName=U_SDRAM Member=C19
+Removed Member From Class: ClassName=U_SDRAM Member=C26
+Removed Member From Class: ClassName=U_SDRAM Member=R56
+Removed Member From Class: ClassName=U_SDRAM Member=R57
+Removed Member From Class: ClassName=U_SDRAM Member=R58
+Removed Member From Class: ClassName=U_SDRAM Member=R59
+Removed Member From Class: ClassName=U_SDRAM Member=R60
+Removed Member From Class: ClassName=U_SDRAM Member=R61
+Removed Member From Class: ClassName=U_SDRAM Member=T1
+Removed Member From Class: ClassName=U_SDRAM Member=T2
+Removed Member From Class: ClassName=U_SDRAM Member=T3
+Change Component Footprint: Designator=U3 Old Footprint=W947D6HBHX5E New Footprint=W989D6DBGX6I
+Change Component Comment : Designator=R56 Old Comment=R-309R-0603 New Comment=R-33R-0603
+Change Component Comment : Designator=U3 Old Comment=W947D6HBHX5E New Comment=W989D6DBGX6I
+Change component parameters: Designator = "U3"; Footprint = "W989D6DBGX6I"; UniqueID = "\GEJPTTZL\YCSFRAPD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "W989D6DBGX6ITR-ND"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R56"; Footprint = "Resistor-0603"; UniqueID = "\FAZDYNFB\PCBTTHDV"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603FT33R0CT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "33R"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J1-37
+Added Pin To Net: NetName=SDRAM_D14 Pin=U3-B1
+Added Pin To Net: NetName=VCC Pin=U3-B3
+Added Pin To Net: NetName=GND Pin=U3-B7
+Added Pin To Net: NetName=SDRAM_D1 Pin=U3-B9
+Added Pin To Net: NetName=SDRAM_D12 Pin=U3-C1
+Added Pin To Net: NetName=GND Pin=U3-C3
+Added Pin To Net: NetName=VCC Pin=U3-C7
+Added Pin To Net: NetName=SDRAM_D3 Pin=U3-C9
+Added Pin To Net: NetName=SDRAM_D10 Pin=U3-D1
+Added Pin To Net: NetName=VCC Pin=U3-D3
+Added Pin To Net: NetName=GND Pin=U3-D7
+Added Pin To Net: NetName=SDRAM_D5 Pin=U3-D9
+Added Pin To Net: NetName=SDRAM_D8 Pin=U3-E1
+Added Pin To Net: NetName=GND Pin=U3-E3
+Added Pin To Net: NetName=VCC Pin=U3-E7
+Added Pin To Net: NetName=SDRAM_NBL0 Pin=U3-E8
+Added Pin To Net: NetName=SDRAM_D7 Pin=U3-E9
+Added Pin To Net: NetName=SDRAM_NBL1 Pin=U3-F1
+Added Pin To Net: NetName=FMC_ SDCLK Pin=U3-F2
+Added Pin To Net: NetName=SDRAM_SDCKE1 Pin=U3-F3
+Added Pin To Net: NetName=SDRAM_SDNCAS Pin=U3-F7
+Added Pin To Net: NetName=SDRAM_SDNRAS Pin=U3-F8
+Added Pin To Net: NetName=SDRAM_SDNWE Pin=U3-F9
+Added Pin To Net: NetName=SDRAM_A11 Pin=U3-G2
+Added Pin To Net: NetName=SDRAM_A9 Pin=U3-G3
+Added Pin To Net: NetName=SDRAM_BA0 Pin=U3-G7
+Added Pin To Net: NetName=SDRAM_BA1 Pin=U3-G8
+Added Pin To Net: NetName=SDRAM_SDNE1 Pin=U3-G9
+Added Pin To Net: NetName=SDRAM_A8 Pin=U3-H1
+Added Pin To Net: NetName=SDRAM_A7 Pin=U3-H2
+Added Pin To Net: NetName=SDRAM_A6 Pin=U3-H3
+Added Pin To Net: NetName=SDRAM_A0 Pin=U3-H7
+Added Pin To Net: NetName=SDRAM_A1 Pin=U3-H8
+Added Pin To Net: NetName=SDRAM_A10 Pin=U3-H9
+Added Pin To Net: NetName=GND Pin=U3-J1
+Added Pin To Net: NetName=SDRAM_A5 Pin=U3-J2
+Added Pin To Net: NetName=SDRAM_A4 Pin=U3-J3
+Added Pin To Net: NetName=SDRAM_A3 Pin=U3-J7
+Added Pin To Net: NetName=SDRAM_A2 Pin=U3-J8
+Added Pin To Net: NetName=VCC Pin=U3-J9
+Added Pin To Net: NetName=NetR56_1 Pin=R56-1
+Added Pin To Net: NetName=NetR56_1 Pin=U2-87
+Added Net: Name=NetR56_1
+Added Pin To Net: NetName=SDRAM_A12 Pin=R56-2
+Added Pin To Net: NetName=SDRAM_A12 Pin=U3-G1
+Added Net: Name=SDRAM_A12
+Change Class Name : Old Net Name=SDRAM_A[11..0] New Net Name=SDRAM_A[12..0]
+Added Member To Class: ClassName=U_MCU Member=Component R56 R-33R-0603
+Added Member To Class: ClassName=SDRAM_A[12..0] Member=Element[12]: SDRAM_A

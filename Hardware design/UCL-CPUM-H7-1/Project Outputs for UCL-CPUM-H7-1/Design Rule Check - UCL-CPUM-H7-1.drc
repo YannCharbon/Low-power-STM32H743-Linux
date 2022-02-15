@@ -1,0 +1,69 @@
+Protel Design System Design Rule Check
+PCB File : D:\OneDrive\Documents\HES-SO\TM\Schematics\UCL-CPUM-H7-1\UCL-CPUM-H7-1.PcbDoc
+Date     : 03/11/2021
+Time     : 16:44:36
+
+Processing Rule : Clearance Constraint (Gap=0.1mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.1mm) (Max=1.5mm) (Preferred=0.2mm) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=0.175mm) (Conductor Width=0.2mm) (Air Gap=0.2mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Minimum Annular Ring (Minimum=0.1mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.15mm) (Max=2mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.35mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.08mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0.05mm) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=0mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=2mm) (InNet('QUADSPI_ BK1_IO0') Or InNet('QUADSPI_ BK1_IO1') Or InNet('QUADSPI_ BK1_IO2') Or InNet('QUADSPI_ BK1_IO3') Or InNet('QUADSPI_ BK1_NCS') Or InNet('QUADSPI_ BK1_NCS') Or InNet('QUADSPI_ CLK'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=3mm) (InNet('ETH_MII_RXD0') Or InNet('ETH_MII_RXD1') Or InNet('ETH_MII_RXD2') Or InNet('ETH_MII_RXD3') Or InNet('ETH_MII_RX_DV') Or InNet('ETH_MII_RX_CLK') Or InNet('ETH_MII_ RX_ER'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=3mm) (InNet('ETH_MII_TXD0') Or InNet('ETH_MII_TXD1') Or InNet('ETH_MII_TXD2') Or InNet('ETH_MII_TXD3') Or InNet('ETH_MII_TX_EN') Or InNet('ETH_MII_TX_CLK'))
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=2mm) (InNetClass('SDRAM_A[11..0]') Or InNetClass('SDRAM_D[15..0]') Or InNet('SDRAM_SDCKE1') Or InNet('SDRAM_SDNCAS') Or InNet('SDRAM_SDNRAS') Or InNet('SDRAM_SDNE1') Or InNet('SDRAM_SDNWE') Or InNet('SDRAM_BA0') Or InNet('SDRAM_BA1') Or InNet('SDRAM_NBL1') Or InNet('SDRAM_NBL0'))
+Rule Violations :0
+
+Processing Rule : Component Clearance Constraint ( Horizontal Gap = 0.1mm, Vertical Gap = 0.25mm ) (All),(All) 
+Rule Violations :0
+
+Processing Rule : Component Clearance Constraint ( Horizontal Gap = 0mm, Vertical Gap = 0mm ) (HasFootprint('EXT_IOS')),(All) 
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25mm) (Prefered=12.5mm) (All)
+Rule Violations :0
+
+
+Violations Detected : 0
+Waived Violations : 0
+Time Elapsed        : 00:00:01

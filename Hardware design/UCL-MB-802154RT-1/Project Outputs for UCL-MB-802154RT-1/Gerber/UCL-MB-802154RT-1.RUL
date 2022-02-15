@@ -1,0 +1,12 @@
+DRC Rules Export File for PCB: D:\OneDrive\Documents\HES-SO\TM\Schematics\UCL-MB-802154RT-1\UCL-MB-802154RT-1.PcbDoc
+RuleKind=Clearance|RuleName=Clearance_RF50|Scope=Board|Minimum=11.81
+RuleKind=Width|RuleName=Width_RF50|Scope=Board|Minimum=23.62
+RuleKind=Width|RuleName=Width_Power|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance_GND_Poly|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance_MM8930-2620RJ4|Scope=Board|Minimum=7.87
+RuleKind=Width|RuleName=Width_Murata_connector|Scope=Board|Minimum=11.81
+RuleKind=Width|RuleName=Width_SKY66122-11|Scope=Board|Minimum=7.87
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=7.87
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0

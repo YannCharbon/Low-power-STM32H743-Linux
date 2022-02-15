@@ -1,0 +1,5 @@
+Record=TopLevelDocument|FileName=Top.SchDoc
+Record=SheetSymbol|SourceDocument=Top.SchDoc|Designator=U_Ethernet|SchDesignator=U_Ethernet|FileName=Ethernet.SchDoc|SymbolType=Normal|RawFileName=Ethernet.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Top.SchDoc|Designator=U_IEEE-802|SchDesignator=U_IEEE-802|FileName=IEEE-802.15.4.SchDoc|SymbolType=Normal|RawFileName=IEEE-802.15.4.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Top.SchDoc|Designator=U_Power|SchDesignator=U_Power|FileName=Power.SchDoc|SymbolType=Normal|RawFileName=Power.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=Top.SchDoc|Designator=U_USB|SchDesignator=U_USB|FileName=USB.SchDoc|SymbolType=Normal|RawFileName=USB.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 

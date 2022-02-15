@@ -1,0 +1,99 @@
+Change component parameters: Designator = "C2"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\AXDOXWMQ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "478-1163-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C3"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\BPMOFFMY"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "478-1163-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C4"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\DPYTZQIF"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "478-1163-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C5"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\AHBRPZPP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "478-1163-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C8"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\VJDBSRTE"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "490-7203-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C10"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\ICQBCMFF"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "490-7203-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C13"; Footprint = "Capacitor-0603"; UniqueID = "\ZSMBABFE\IXIRABAF"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "490-7203-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C16"; Footprint = "SM/C_0402"; UniqueID = "\WVGPBCAK\PAHDUGXH"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "478-12618-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "1.5nF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C37"; Footprint = "Capacitor-1210"; UniqueID = "\JFQAAWSK\NUDKZCIJ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "1276-3372-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "22uF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C40"; Footprint = "Capacitor-1210"; UniqueID = "\JFQAAWSK\GNNVUGTA"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "1276-3372-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "22uF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J16"; Footprint = "USB3085-30-A"; UniqueID = "\YQDRQTMO\JCCINZVW"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "2073-USB3085-30-ACT-ND"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R71"; Footprint = "Resistor-0603"; UniqueID = "\YQDRQTMO\USBKICHD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603FT24R0CT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "24R"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R73"; Footprint = "Resistor-0603"; UniqueID = "\YQDRQTMO\PEWGGOJD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603FT24R0CT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "24R"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R75"; Footprint = "Resistor-0603"; UniqueID = "\YQDRQTMO\VSLJQJWM"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603FT20K0CT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "20K"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R79"; Footprint = "Resistor-0603"; UniqueID = "\YQDRQTMO\QSSOIIJC"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603FT20K0CT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "20K"; VariantName = "[No Variations]"
+Change component parameters: Designator = "S1"; Footprint = "TL3305AF260QG"; UniqueID = "\YSYUNNME"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "EG5353CT-ND"; VariantName = "[No Variations]"
+Change component parameters: Designator = "S2"; Footprint = "TL3305AF260QG"; UniqueID = "\DNZWVJMG"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "EG5353CT-ND"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Y1"; Footprint = "830107871909"; UniqueID = "\ZSMBABFE\OCGZVHDZ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "1923-830107871909CT-ND"; VariantName = "[No Variations]"
+Added Component: Designator=R43(Resistor-0603)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "RMCF0603ZT0R00CT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0R"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetR43_1 Pin=R43-1
+Added Pin To Net: NetName=NetR43_1 Pin=R78-1
+Added Pin To Net: NetName=NetR43_1 Pin=U8-23
+Added Net: Name=NetR43_1
+Added Pin To Net: NetName=NetR43_2 Pin=R43-2
+Added Pin To Net: NetName=NetR43_2 Pin=U9-4
+Added Net: Name=NetR43_2
+Added Member To Class: ClassName=U_USB Member=Component R43 R-0R-0603

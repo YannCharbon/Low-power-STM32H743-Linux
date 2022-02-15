@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=ETH_MII_CRS Pin=J1-59
+Removed Pin From Net: NetName=ETH_MII_COL Pin=J1-60
+Added Pin To Net: NetName=SPI5_NSS Pin=J1-40
+Added Pin To Net: NetName=SPI5_SCK Pin=J1-41
+Added Pin To Net: NetName=SPI5_MISO Pin=J1-42
+Added Pin To Net: NetName=SPI5_MOSI Pin=J1-43
+Added Pin To Net: NetName=ETH_MII_COL Pin=J1-59
+Added Pin To Net: NetName=ETH_MII_CRS Pin=J1-60

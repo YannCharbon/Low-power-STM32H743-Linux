@@ -1,0 +1,4 @@
+TFTP_USERNAME="<username>"
+TFTP_DIRECTORY="/srv/tftp/"
+TFTP_ADDRESS=":69"
+TFTP_OPTIONS="--ipv4 --secure"

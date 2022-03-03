@@ -1,5 +1,0 @@
-Removed Pin From Net: NetName=GND Pin=D4-1
-Added Pin To Net: NetName=+2V_MCU Pin=D4-2
-Added Pin To Net: NetName=NetD4_1 Pin=D4-1
-Added Pin To Net: NetName=NetD4_1 Pin=R44-1
-Added Net: Name=NetD4_1

@@ -13,13 +13,15 @@ There are three base configs for Linux that can be used
 ## Installation, configuration
 First of all, run the `init_tftp.sh` to install, configure and create the TFTP server and directory. The TFTP folder for the project is `/srv/tftp/stm32h743`.
 
-To install the Buildroot distribution, simply set the desired configuration by running one of the following script :
+To generate Linux distribution using Buildroot, run `make BR2_EXTERNAL=<path_to_this_git_repo>/custom_board_def`.
+
+Once Buildroot has finished generating the distribution, simply set the desired configuration by running one of the following script :
 
 - `set_mode_initramfs_rootfs.sh`
 - `set_mode_jffs2_rootfs.sh`
 - `set_mode_xip_rootfs.sh`
 
-After this, run `make` inside the buildroot repository.
+After this, run `make` again inside the buildroot repository.
 
 The output files can be found under `buildroot/output/images`.
 
